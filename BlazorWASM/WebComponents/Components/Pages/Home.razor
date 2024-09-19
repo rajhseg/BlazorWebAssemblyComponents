@@ -1,7 +1,50 @@
 ﻿@page "/"
 
-<PageTitle>Home</PageTitle>
+@using WebComponents.Components.Controls.TextBox;
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<div style="padding-left: 20px;margin-top:25px;">
+<RTextboxComponent style="{width:200px;}" LabelText="Enter Username" 
+    LabelForeColor="blue"
+    BottomLineColor="blue"
+    PlaceholderText="please enter username"        
+    OnFocusIn="((e)=>focusIn(e))"
+    OnFocusOut="((e)=> focusOut(e))"
+    @bind-TextboxValue="textValue">
+</RTextboxComponent>
+
+<br />
+
+<RTextboxComponent style="{width:200px;}" LabelText="Enter Password" 
+    LabelForeColor="blue"
+    BottomLineColor="blue"
+    PlaceholderText="please enter password"    
+    IsPasswordBox=true
+    OnFocusIn="((e)=>focusIn(e))"
+    OnFocusOut="((e)=> focusOut(e))"
+    @bind-TextboxValue="pass">
+</RTextboxComponent>
+</div>
+
+<br />
+
+
+
+
+
+@code {
+    private string textValue = "8";
+
+    private string pass = "";
+
+    public void focusIn(FocusEventArgs e)
+    {
+        
+    }
+
+    public void focusOut(FocusEventArgs e)
+    {
+
+    }
+
+}

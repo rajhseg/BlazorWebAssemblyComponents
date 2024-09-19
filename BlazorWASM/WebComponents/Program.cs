@@ -1,10 +1,14 @@
+using Microsoft.JSInterop;
 using WebComponents.Components;
+using WebComponents.Components.Controls;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddTransient<IJsConsole, JsConsole>();
 
 var app = builder.Build();
 
