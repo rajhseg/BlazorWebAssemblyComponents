@@ -62,6 +62,16 @@ namespace WebComponents.Components.Controls.Button
         [Parameter]
         public RenderFragment Content { get; set; }
 
+        protected override Task OnInitializedAsync()
+        {
+            if(EditContext==null){
+                if(this.OnValidSubmit.HasDelegate || this.OnInValidSubmit.HasDelegate){
+                    throw new Exception("Button should be inside EditForm, when OnValidSubmit or OnInValidSubmit is Assigned or Use only ButtonClick handler if it is outside of EditForm.");
+                }
+            }
+            return base.OnInitializedAsync();
+        }
+
         private async Task OnClick(EventArgs e)
         {
             var args = new RButtonEventArgs() { Args = e, Context = EditContext };
