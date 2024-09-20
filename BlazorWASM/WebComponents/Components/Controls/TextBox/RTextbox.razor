@@ -1,0 +1,27 @@
+﻿
+
+
+<div class="txtroot">
+    <span class="span" style="width: @(TextBoxWidth)px; 
+                            color: @LabelForeColor;"> 
+        @LabelText  
+    </span>
+     
+    <input readOnly="@IsReadOnly"
+            type=@(IsPasswordBox ? "password" : "text")             
+            value="@TextboxValue" @oninput="((e)=>this.ValueChanged(e))"            
+            class="txtbox" 
+            @attributes="Attributes"
+
+       style="height: @(TextBoxHeight)px; 
+            width: @(TextBoxWidth)px;
+            border-bottom-color: @BottomLineColor;       
+            margin-bottom: @(EnableMarginTextBottom ? (this.MarginTextBottom) : 0 )px; 
+            @style"
+
+       placeholder="@PlaceholderText" 
+       @onclick="((e)=> txtboxClicked(e))"
+       @onfocusin="((e)=> txtboxFocusin(e))"
+       @onfocusout="((e)=> txtboxFocusout(e))">     
+
+</div>

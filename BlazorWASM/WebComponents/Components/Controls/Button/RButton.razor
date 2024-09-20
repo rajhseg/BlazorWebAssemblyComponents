@@ -1,0 +1,11 @@
+﻿
+<button class="btn" 
+    @onclick="((e)=> this.OnClick(e))" type="@ButtonType"
+    @attributes="@Attributes"
+
+    style="height: @ButtonHeight; width: @ButtonWidth;
+        color:@ForeColor; 
+        background-color:@BackgroundColor; 
+        border: 1px solid @BackgroundColor; @style">
+    @Content
+</button>
