@@ -3,9 +3,9 @@
 @using System.ComponentModel.DataAnnotations;
 @using WebComponents.Components.Controls.TextBox;
 @using WebComponents.Components.Controls.Button;
+@using WebComponents.Components.Controls.Switch;
 
-
-<EditForm Model="@UserModel" FormName="fname" 
+<EditForm Model="@ProfileInfo" FormName="fname" 
                                 OnInvalidSubmit="OnInValidSubmit" 
                                 OnValidSubmit="ValidSubmit"> 
 
@@ -17,11 +17,11 @@
         LabelText="Enter Username"        
         PlaceholderText="Username"   
 
-        ValueExpression="()=> UserModel.textValue"
-        @bind-TextboxValue="UserModel.textValue">
+        ValueExpression="()=> ProfileInfo.User.textValue"        
+        @bind-value="ProfileInfo.User.textValue">
     </RTextbox>
 
-    <ValidationMessage style="color: blueviolet;" For="(()=> UserModel.textValue)"/> 
+    <ValidationMessage style="color: blueviolet;" For="(()=> ProfileInfo.User.textValue)"/> 
 
     <br />
 
@@ -30,19 +30,28 @@
         PlaceholderText="Password" 
         IsPasswordBox=true         
 
-        ValueExpression="()=> UserModel.pass"
-        @bind-TextboxValue="UserModel.pass">
+        ValueExpression="()=> ProfileInfo.User.pass"
+        @bind-value="ProfileInfo.User.pass">
     </RTextbox>
 
-    <ValidationMessage style="color:blueviolet" For="(()=> UserModel.pass)"/> 
+    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.User.pass)"/> 
 
     <br />
+
+    <RSwitch ValueExpression="()=> ProfileInfo.IsTenthPass" DisplayLabel="Is Tenth Pass" 
+        @bind-value="@ProfileInfo.IsTenthPass"></RSwitch>
     
+    <RSwitch ValueExpression="()=> ProfileInfo.IsTenthPass" SwitchBackColor="pink" DisplayLabel="Is Graduate" 
+        @bind-value="@ProfileInfo.IsTenthPass"></RSwitch>
+        
+    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsTenthPass)" />
+    
+    <br/>
     <RButton ButtonType="submit">
         <Content>Submit</Content>
     </RButton>
 
-    <RButton BackgroundColor="orange" ButtonType="button" ButtonClick="(e) => ClearForm(e)">
+    <RButton BackgroundColor="orange" ButtonType="RButtonType.Button" ButtonClick="(e) => ClearForm(e)">
         <Content>Clear</Content>
     </RButton>
 
@@ -51,8 +60,9 @@
  </EditForm> 
     
 <br/>
-UserName : @UserModel.textValue <br />
-Password : @UserModel.pass
+UserName : @ProfileInfo?.User?.textValue <br />
+Password : @ProfileInfo?.User?.pass <br />
+Tenth Pass: @ProfileInfo?.IsTenthPass
 
 <br />
 
@@ -62,18 +72,19 @@ Password : @UserModel.pass
 
 @code {
 
-    private EditContext? context;
+    private EditContext? context;    
 
-    public UserInfo UserModel { get; set; } = new UserInfo();
+    public Profile ProfileInfo {get; set; } = new Profile();
 
     protected override void OnInitialized() {
-       this.context = new (UserModel);
+       this.context = new (ProfileInfo);
     }
 
     private void ClearForm(RButtonEventArgs e)
     {
-        this.UserModel.textValue = "";
-        this.UserModel.pass = "";
+        this.ProfileInfo.User.textValue = "";
+        this.ProfileInfo.User.pass = "";
+        this.ProfileInfo.IsTenthPass = null;
     }
 
     private void SubmitForm(EditContext context)
@@ -111,7 +122,15 @@ Password : @UserModel.pass
         public string textValue { get; set; }
 
         [Required(ErrorMessage = "please enter password!!!")]
-        public string pass { get; set; }
+        public string pass { get; set; }        
 
+    }
+
+    public class Profile 
+    {
+        [Required(ErrorMessage ="Please enter Tenth pass or not")]
+        public bool? IsTenthPass {get; set;}
+
+        public UserInfo User {get; set; } = new UserInfo();
     }
 }

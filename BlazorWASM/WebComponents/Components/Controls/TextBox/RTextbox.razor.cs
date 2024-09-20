@@ -85,7 +85,7 @@ namespace WebComponents.Components.Controls.TextBox
     }
 
     [Parameter]
-    public string TextboxValue
+    public string value
     {
       get
       {
@@ -94,11 +94,14 @@ namespace WebComponents.Components.Controls.TextBox
       set
       {
         this._textboxValue = value;
+        
+        if (fieldIdentifier.FieldName != null)
+          EditContext?.NotifyFieldChanged(fieldIdentifier);
       }
     }
 
     [Parameter]
-    public EventCallback<string> TextboxValueChanged { get; set; }
+    public EventCallback<string> valueChanged { get; set; }
 
     [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
@@ -124,7 +127,7 @@ namespace WebComponents.Components.Controls.TextBox
       base.OnInitialized();
     }
 
-    private async Task ValueChanged(ChangeEventArgs e)
+    private async Task OnChanged(ChangeEventArgs e)
     {
       var val = "";
       if (e.Value != null)
@@ -132,9 +135,9 @@ namespace WebComponents.Components.Controls.TextBox
 
       this._textboxValue = val;
 
-      if (this.TextboxValueChanged.HasDelegate)
+      if (this.valueChanged.HasDelegate)
       {
-        await TextboxValueChanged.InvokeAsync(this._textboxValue);
+        await valueChanged.InvokeAsync(this._textboxValue);
         StateHasChanged();
       }
 

@@ -9,7 +9,7 @@
      
     <input readOnly="@IsReadOnly"
             type=@(IsPasswordBox ? "password" : "text")             
-            value="@TextboxValue" @oninput="((e)=>this.ValueChanged(e))"            
+            value="@value" @oninput="((e)=>this.OnChanged(e))"            
             class="txtbox" 
             @attributes="Attributes"
 

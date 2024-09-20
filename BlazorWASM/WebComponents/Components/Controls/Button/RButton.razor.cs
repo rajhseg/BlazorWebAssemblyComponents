@@ -100,4 +100,14 @@ namespace WebComponents.Components.Controls.Button
             }
         }
     }
+
+    public static class RButtonType {
+        public static string Button = "button";
+
+        public static string Menu = "menu";
+
+        public static string Submit = "submit";
+
+        public static string Reset = "reset";
+    }
 }

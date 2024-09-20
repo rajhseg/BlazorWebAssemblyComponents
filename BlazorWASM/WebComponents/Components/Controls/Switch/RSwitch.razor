@@ -1,0 +1,11 @@
+﻿
+
+<div style="padding-top: 8px; padding-bottom: 8px;">
+    <span class="font12" style="position:relative;padding-right:5px;color:@DisplayLabelColor">
+        @DisplayLabel
+    </span>
+    <label class="rswitch">
+      <input type="checkbox" checked="@(isChecked.HasValue ? isChecked.Value : false)" @onclick="((e)=>toggle(e))">
+      <span class="sdr round"  style="background-color: @(isChecked.HasValue && isChecked.Value ? SwitchBackColor : "");"></span>
+    </label>
+  </div>
