@@ -1,5 +1,5 @@
 # Blazor WebAssembly Components
-This repo is under development, it is consists of various Controls in Blazor WebAssembly like RTextBox, RButton, RSwitch etc.
+This repo is under development, it is consists of various Controls in Blazor WebAssembly like RTextBox, RButton, RSwitch, RCheckbox etc.
 
 RTextbox
 ----------------------------------
@@ -25,6 +25,10 @@ RSwitch
 
 <br />
 
+RCheckbox
+-----------------------------------
+![image](https://github.com/user-attachments/assets/ff315f4b-0ae2-4f8a-af30-e5c522521444)
 
+<br />
 
 
