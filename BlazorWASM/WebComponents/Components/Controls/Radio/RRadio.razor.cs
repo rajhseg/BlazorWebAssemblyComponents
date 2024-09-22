@@ -2,12 +2,12 @@ using System;
 using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
-using Microsoft.AspNetCore.Components.Web;
 
-namespace WebComponents.Components.Controls.Checkbox;
+namespace WebComponents.Components.Controls.Radio;
 
-public partial class RCheckbox : IEntity
+public partial class RRadio : IEntity
 {
+
     public string _id { get; private set; }
     private bool? _isChecked;
     private FieldIdentifier fieldIdentifier;
@@ -55,6 +55,10 @@ public partial class RCheckbox : IEntity
         }
     }
 
+
+    [Parameter]
+    public string Color {get; set; } = "#00c7ba";
+
     [Parameter]
     public EventCallback<bool?> valueChanged { get; set; }
 
@@ -74,9 +78,9 @@ public partial class RCheckbox : IEntity
     public EventCallback<bool> OnUnChecked { get; set; }
 
     [Parameter]
-    public EventCallback<RCheckboxEventArgs> OnClick { get; set; }
+    public EventCallback<RRadioEventArgs> OnClick { get; set; }
 
-    public RCheckbox()
+    public RRadio()
     {
     }
 
@@ -89,7 +93,7 @@ public partial class RCheckbox : IEntity
     {
         if (objService != null)
         {
-            var objs = objService.GetAllObjectsOfType(typeof(RCheckbox)).Cast<RCheckbox>();
+            var objs = objService.GetAllObjectsOfType(typeof(RRadio)).Cast<RRadio>();
             var filtered = objs.Where(x => x.GroupName.ToLower() == groupname.ToLower() && x._id != this._id);
 
             foreach (var item in filtered)
@@ -133,7 +137,7 @@ public partial class RCheckbox : IEntity
 
         if (this.OnClick.HasDelegate)
         {
-            var args = new RCheckboxEventArgs() { Args = e, IsChecked = checkValue };
+            var args = new RRadioEventArgs() { Args = e, IsChecked = checkValue };
             await this.OnClick.InvokeAsync(args);
         }
 
@@ -176,10 +180,10 @@ public partial class RCheckbox : IEntity
         if (firstRender)
         {
             if (string.IsNullOrEmpty(this._id))
-                this._id = "rcheckbox_" + Guid.NewGuid().ToString().ToLower();
+                this._id = "rradio_" + Guid.NewGuid().ToString().ToLower();
 
             if (objService != null)
-                objService.AddInstance(typeof(RCheckbox), this);
+                objService.AddInstance(typeof(RRadio), this);
 
             StateHasChanged();
         }
@@ -191,4 +195,5 @@ public partial class RCheckbox : IEntity
     {        
         await base.OnParametersSetAsync();
     }
+
 }

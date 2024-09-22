@@ -1,7 +1,12 @@
 ﻿
+
+
+
 @inject IRObjectCollection objService;
 
-<div id="@_id" style="width: fit-content; margin-top: 6px; margin-bottom: 6px; display: flex;cursor: pointer;"  @onclick="((e) => check(e))">
+<div id="@_id" style="width: fit-content; margin-top: 6px; margin-bottom: 6px; 
+                        display: flex;cursor: pointer;" 
+     @onclick="((e) => check(e))">
 
     @if(!DisplayTextRightAlign){
         <div style="@LabelStyle" class="label">
@@ -9,8 +14,8 @@
         </div>
     }
 
-    <div class="checkroot">
-        <span class=@(_isChecked.HasValue ? _isChecked.Value ? "check" : "" : "")>
+    <div class="radioroot">
+        <span style="background-color: @Color" class=@(_isChecked.HasValue ? _isChecked.Value ? "radioround" : "" : "")>
 
         </span>
     </div>

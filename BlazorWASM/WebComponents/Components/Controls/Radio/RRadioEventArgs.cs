@@ -1,10 +1,11 @@
 using System;
 
-namespace WebComponents.Components.Controls.Checkbox;
+namespace WebComponents.Components.Controls.Radio;
 
-public class RCheckboxEventArgs
+public class RRadioEventArgs
 {
     public EventArgs? Args {get; set;}
 
     public bool IsChecked {get; set;}
+
 }

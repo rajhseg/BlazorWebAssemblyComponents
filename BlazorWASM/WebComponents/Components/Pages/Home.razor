@@ -1,6 +1,8 @@
 ﻿@page "/"
 
 @using System.ComponentModel.DataAnnotations;
+@using WebComponents.Components.Controls.GroupPanel
+@using WebComponents.Components.Controls.Radio
 @using WebComponents.Components.Controls.TextBox;
 @using WebComponents.Components.Controls.Button;
 @using WebComponents.Components.Controls.Switch;
@@ -49,22 +51,44 @@
     <br />
     <RCheckbox LabelStyle="color:blue" DisplayText="Is Cricket" 
         ValueExpression="()=> ProfileInfo.IsCricket" 
-       GroupName="sports" @bind-value="@ProfileInfo.IsCricket"></RCheckbox>
+        @bind-value="@ProfileInfo.IsCricket"></RCheckbox>
     <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
     <br />
 
     <RCheckbox LabelStyle="color:blue" DisplayText="Is Tennis" 
         ValueExpression="()=> ProfileInfo.IsTennis" OnChecked="TennisSelected"
-        GroupName="sports" @bind-value="@ProfileInfo.IsTennis"></RCheckbox>
+             @bind-value="@ProfileInfo.IsTennis"></RCheckbox>
     <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsTennis)" />
     <br />
 
     <RCheckbox LabelStyle="color:blue" DisplayText="Is Volleyball" 
         ValueExpression="()=> ProfileInfo.IsVolleyball" 
-        GroupName="sports"  @bind-value="@ProfileInfo.IsVolleyball"></RCheckbox>
+          @bind-value="@ProfileInfo.IsVolleyball"></RCheckbox>
     <ValidationMessage style="color:rgba(108, 65, 148, 0.616)" For="(()=> ProfileInfo.IsVolleyball)" />
-    <br />
-    
+    <br />        
+        
+    <RGroupPanel ContentStyle="width:330px" GroupName="Sports" 
+                 LabelStyle="color:purple;" IsItemsArrangeHorizontal="true">
+        <Content>
+                     
+            <RRadio LabelStyle="color:blue" DisplayText="Is Baseball" 
+                GroupName="sports"
+                ValueExpression="()=> ProfileInfo.IsBaseball" 
+                @bind-value="@ProfileInfo.IsBaseball"></RRadio>                        
+
+            <RRadio LabelStyle="color:blue" DisplayText="Is Football" 
+                GroupName="sports"
+                ValueExpression="()=> ProfileInfo.IsFootball" 
+                    @bind-value="@ProfileInfo.IsFootball"></RRadio>            
+            
+            <RRadio LabelStyle="color:blue" DisplayText="Is Hockey" 
+                GroupName="sports"
+                ValueExpression="()=> ProfileInfo.IsHockey" 
+                @bind-value="@ProfileInfo.IsHockey"></RRadio>
+                         
+        </Content>
+    </RGroupPanel>
+
     <br/>
     <RButton ButtonType="submit">
         <Content>Submit</Content>
@@ -84,7 +108,11 @@ Password : @ProfileInfo?.User?.pass <br />
 Tenth Pass: @ProfileInfo?.IsTenthPass <br />
 IsCricket : @ProfileInfo?.IsCricket <br/>
 IsTennis : @ProfileInfo?.IsTennis <br/>
-IsVolleyBall : @ProfileInfo?.IsVolleyball
+IsVolleyBall : @ProfileInfo?.IsVolleyball <br />
+
+IsBaseball : @ProfileInfo?.IsBaseball <br/>
+IsFootball : @ProfileInfo?.IsFootball <br/>
+IsHockey : @ProfileInfo?.IsHockey <br />
 
 <br />
 
@@ -168,5 +196,15 @@ IsVolleyBall : @ProfileInfo?.IsVolleyball
 
         [Required(ErrorMessage ="Please enter playing tennis or not")]
         public bool? IsTennis {get;set;}
+
+        
+        [Required(ErrorMessage ="Please enter playing IsBaseball or not")]
+        public bool? IsBaseball {get;set;}
+
+        [Required(ErrorMessage ="Please enter playing Football or not")]
+        public bool? IsFootball {get; set;}
+
+        [Required(ErrorMessage ="Please enter playing Hockey or not")]
+        public bool? IsHockey {get;set;}
     }
 }
