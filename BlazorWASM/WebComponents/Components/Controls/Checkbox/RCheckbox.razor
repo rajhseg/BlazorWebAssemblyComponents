@@ -1,0 +1,24 @@
+﻿
+@inject IRObjectCollection objService;
+
+<div id="@_id" style="display: flex;cursor: pointer;"  @onclick="((e) => check(e))">
+
+    @if(!DisplayTextRightAlign){
+        <div style="@LabelStyle" class="label">
+            @DisplayText
+        </div>
+    }
+
+    <div class="checkroot">
+        <span class=@(_isChecked.HasValue ? _isChecked.Value ? "check" : "" : "")>
+
+        </span>
+    </div>
+
+    @if(DisplayTextRightAlign) {
+        <div style="@LabelStyle" class="label">
+            @DisplayText
+        </div>
+    }
+
+</div>

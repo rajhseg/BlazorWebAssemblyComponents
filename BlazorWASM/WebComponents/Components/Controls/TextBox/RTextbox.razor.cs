@@ -6,16 +6,18 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace WebComponents.Components.Controls.TextBox
 {
-  public partial class RTextbox
+  public partial class RTextbox : IEntity
   {
+    public string _id { get; private set; }
     private string _textboxValue = "";
     private FieldIdentifier fieldIdentifier;
-    private string styles = "";
+    private string textboxStyle = "";
+    private string labelStyle = "";
     private bool isPassword = false;
-    
+
 
     [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> Attributes { get; set; }  
+    public Dictionary<string, object> Attributes { get; set; }
 
     [CascadingParameter]
     public EditContext? EditContext { get; set; }
@@ -23,24 +25,32 @@ namespace WebComponents.Components.Controls.TextBox
     [Parameter]
     public Expression<Func<string>> ValueExpression { get; set; } = default!;
 
+
     [Parameter]
-    public string style
+    public string LabelStyle
     {
       set
       {
         var val = value.Trim();
-        if (val != "")
-        {
-          styles = val.Substring(1, val.Length - 2);
-        }
-        else
-        {
-          styles = "";
-        }
+        labelStyle = val;
       }
       get
       {
-        return this.styles;
+        return this.labelStyle;
+      }
+    }
+
+    [Parameter]
+    public string TextboxStyle
+    {
+      set
+      {
+        var val = value.Trim();
+        textboxStyle = val;
+      }
+      get
+      {
+        return this.textboxStyle;
       }
     }
 
@@ -63,7 +73,7 @@ namespace WebComponents.Components.Controls.TextBox
     public int TextBoxWidth { get; set; } = 200;
 
     [Parameter]
-    public int TextBoxHeight { get; set; } = 30;    
+    public int TextBoxHeight { get; set; } = 30;
 
     [Parameter]
     public bool EnableMarginTextBottom { get; set; } = true;
@@ -94,7 +104,7 @@ namespace WebComponents.Components.Controls.TextBox
       set
       {
         this._textboxValue = value;
-        
+
         if (fieldIdentifier.FieldName != null)
           EditContext?.NotifyFieldChanged(fieldIdentifier);
       }
@@ -113,6 +123,23 @@ namespace WebComponents.Components.Controls.TextBox
 
     [Parameter]
     public EventCallback<FocusEventArgs> OnFocusOut { get; set; }
+
+    public RTextbox()
+    {
+
+    }
+
+    protected override Task OnAfterRenderAsync(bool firstRender)
+    {
+      if (firstRender)
+      {
+        if (string.IsNullOrEmpty(this._id))
+          this._id = "rtextbox_" + Guid.NewGuid().ToString().ToLower();
+
+        StateHasChanged();
+      }
+      return base.OnAfterRenderAsync(firstRender);
+    }
 
     protected override void OnInitialized()
     {

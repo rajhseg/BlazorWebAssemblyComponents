@@ -4,6 +4,7 @@
 @using WebComponents.Components.Controls.TextBox;
 @using WebComponents.Components.Controls.Button;
 @using WebComponents.Components.Controls.Switch;
+@using WebComponents.Components.Controls.Checkbox;
 
 <EditForm Model="@ProfileInfo" FormName="fname" 
                                 OnInvalidSubmit="OnInValidSubmit" 
@@ -25,7 +26,7 @@
 
     <br />
 
-    <RTextbox style="{width:200px;}" 
+    <RTextbox TextboxStyle="width:200px;" 
         LabelText="Enter Password"        
         PlaceholderText="Password" 
         IsPasswordBox=true         
@@ -41,10 +42,28 @@
     <RSwitch ValueExpression="()=> ProfileInfo.IsTenthPass" DisplayLabel="Is Tenth Pass" 
         @bind-value="@ProfileInfo.IsTenthPass"></RSwitch>
     
-    <RSwitch ValueExpression="()=> ProfileInfo.IsTenthPass" SwitchBackColor="pink" DisplayLabel="Is Graduate" 
-        @bind-value="@ProfileInfo.IsTenthPass"></RSwitch>
+    <RSwitch ValueExpression="()=> ProfileInfo.IsCricket" SwitchBackColor="pink" DisplayLabel="Is Graduate" 
+        @bind-value="@ProfileInfo.IsCricket"></RSwitch>
         
-    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsTenthPass)" />
+    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
+    <br />
+    <RCheckbox LabelStyle="color:blue" DisplayText="Is Cricket" 
+        ValueExpression="()=> ProfileInfo.IsCricket" 
+       GroupName="sports" @bind-value="@ProfileInfo.IsCricket"></RCheckbox>
+    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
+    <br />
+
+    <RCheckbox LabelStyle="color:blue" DisplayText="Is Tennis" 
+        ValueExpression="()=> ProfileInfo.IsTennis" OnChecked="TennisSelected"
+        GroupName="sports" @bind-value="@ProfileInfo.IsTennis"></RCheckbox>
+    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsTennis)" />
+    <br />
+
+    <RCheckbox LabelStyle="color:blue" DisplayText="Is Volleyball" 
+        ValueExpression="()=> ProfileInfo.IsVolleyball" 
+        GroupName="sports"  @bind-value="@ProfileInfo.IsVolleyball"></RCheckbox>
+    <ValidationMessage style="color:rgba(108, 65, 148, 0.616)" For="(()=> ProfileInfo.IsVolleyball)" />
+    <br />
     
     <br/>
     <RButton ButtonType="submit">
@@ -62,7 +81,10 @@
 <br/>
 UserName : @ProfileInfo?.User?.textValue <br />
 Password : @ProfileInfo?.User?.pass <br />
-Tenth Pass: @ProfileInfo?.IsTenthPass
+Tenth Pass: @ProfileInfo?.IsTenthPass <br />
+IsCricket : @ProfileInfo?.IsCricket <br/>
+IsTennis : @ProfileInfo?.IsTennis <br/>
+IsVolleyBall : @ProfileInfo?.IsVolleyball
 
 <br />
 
@@ -74,7 +96,7 @@ Tenth Pass: @ProfileInfo?.IsTenthPass
 
     private EditContext? context;    
 
-    public Profile ProfileInfo {get; set; } = new Profile();
+    public Profile ProfileInfo {get; set; } = new Profile() {IsTenthPass = true};
 
     protected override void OnInitialized() {
        this.context = new (ProfileInfo);
@@ -85,6 +107,11 @@ Tenth Pass: @ProfileInfo?.IsTenthPass
         this.ProfileInfo.User.textValue = "";
         this.ProfileInfo.User.pass = "";
         this.ProfileInfo.IsTenthPass = null;
+    }
+
+    private void TennisSelected()
+    {
+        
     }
 
     private void SubmitForm(EditContext context)
@@ -132,5 +159,14 @@ Tenth Pass: @ProfileInfo?.IsTenthPass
         public bool? IsTenthPass {get; set;}
 
         public UserInfo User {get; set; } = new UserInfo();
+
+        [Required(ErrorMessage ="Please enter playing Cricket or not")]
+        public bool? IsCricket {get;set;}
+
+        [Required(ErrorMessage ="Please enter playing volleyball or not")]
+        public bool? IsVolleyball {get; set;}
+
+        [Required(ErrorMessage ="Please enter playing tennis or not")]
+        public bool? IsTennis {get;set;}
     }
 }

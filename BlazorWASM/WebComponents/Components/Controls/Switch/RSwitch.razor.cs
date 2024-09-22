@@ -5,114 +5,143 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace WebComponents.Components.Controls.Switch;
 
-public partial class RSwitch
+public partial class RSwitch : IEntity
 {
-    private FieldIdentifier fieldIdentifier;
-    private string styles = "";
-    private string _backColor = "rgba(27, 81, 199, 0.692)";
-    private bool? isChecked = false;
+  public string _id { get; private set; }
+  private FieldIdentifier fieldIdentifier;
+  private string labelStyle = string.Empty;
+  private string styles = "";
+  private string _backColor = "rgba(27, 81, 199, 0.692)";
+  private bool? isChecked = false;
 
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> Attributes { get; set; }  
+  [Parameter(CaptureUnmatchedValues = true)]
+  public Dictionary<string, object> Attributes { get; set; }
 
-    [CascadingParameter]
-    public EditContext? EditContext { get; set; }
+  [CascadingParameter]
+  public EditContext? EditContext { get; set; }
 
-    [Parameter]
-    public Expression<Func<bool?>> ValueExpression { get; set; } = default!;
+  [Parameter]
+  public Expression<Func<bool?>> ValueExpression { get; set; } = default!;
 
-    [Parameter]
-    public string style
+  [Parameter]
+  public string LabelStyle
+  {
+    set
     {
-      set
-      {
-        var val = value.Trim();
-        if (val != "")
-        {
-          styles = val.Substring(1, val.Length - 2);
-        }
-        else
-        {
-          styles = "";
-        }
-      }
-      get
-      {
-        return this.styles;
-      }
+      var val = value.Trim();
+      labelStyle = val;
     }
-
-  [Parameter]
-  public string DisplayLabel {get; set; } = string.Empty;
-
-  [Parameter]
-  public string DisplayLabelColor {get; set; } = "blue";
-
-  [Parameter]
-  public string SwitchBackColor {
-    set {
-        this._backColor = value;
-    }
-    get {
-        return this._backColor;
+    get
+    {
+      return this.labelStyle;
     }
   }
 
   [Parameter]
-  public bool? value {
-    get {
-        return this.isChecked;
+  public string DisplayLabel { get; set; } = string.Empty;
+
+  [Parameter]
+  public string DisplayLabelColor { get; set; } = "blue";
+
+  [Parameter]
+  public string SwitchBackColor
+  {
+    set
+    {
+      this._backColor = value;
     }
-    set {
-        this.isChecked = value;
-        
-         if (fieldIdentifier.FieldName != null)
-          EditContext?.NotifyFieldChanged(fieldIdentifier);
+    get
+    {
+      return this._backColor;
     }
   }
 
   [Parameter]
-  public EventCallback<bool?> valueChanged {get; set;}
+  public bool? value
+  {
+    get
+    {
+      return this.isChecked;
+    }
+    set
+    {
+      this.isChecked = value;
+      
+      if (this.fieldIdentifier.FieldName != null)
+        this.EditContext?.NotifyFieldChanged(this.fieldIdentifier);
+    }
+  }
 
   [Parameter]
-  public EventCallback<bool> OnChecked { get; set; } 
+  public EventCallback<bool?> valueChanged { get; set; }
+
+  [Parameter]
+  public EventCallback<bool> OnChecked { get; set; }
 
   [Parameter]
   public EventCallback<bool> OnUnChecked { get; set; }
 
-  protected override Task OnInitializedAsync()    
+  public RSwitch()
   {
-    if(ValueExpression!=null){
-        this.fieldIdentifier = FieldIdentifier.Create(ValueExpression);
 
-        if(fieldIdentifier.FieldName!=null)
-            EditContext?.NotifyFieldChanged(fieldIdentifier);
+  }
+
+  protected override Task OnAfterRenderAsync(bool firstRender)
+  {
+    if (firstRender)
+    {
+      if (string.IsNullOrEmpty(this._id))
+        this._id = "rswitch_" + Guid.NewGuid().ToString().ToLower();
+
+      StateHasChanged();
+    }
+
+    return base.OnAfterRenderAsync(firstRender);
+  }
+
+  protected override Task OnInitializedAsync()
+  {
+    if (ValueExpression != null)
+    {
+      this.fieldIdentifier = FieldIdentifier.Create(ValueExpression);
+
+      if (fieldIdentifier.FieldName != null)
+        EditContext?.NotifyFieldChanged(fieldIdentifier);
     }
 
     return base.OnInitializedAsync();
   }
 
-   private async Task toggle(EventArgs e) {
-    
-    if(isChecked==null)
+  private async Task toggle(EventArgs e)
+  {
+    if (isChecked == null)
       isChecked = false;
 
-    isChecked = !isChecked; 
+    isChecked = !isChecked;
 
-    if(valueChanged.HasDelegate){
-        await valueChanged.InvokeAsync(this.isChecked);
-        StateHasChanged();
-    }           
+    if (valueChanged.HasDelegate)
+    {
+      await valueChanged.InvokeAsync(this.isChecked);
+    }
 
-    if(fieldIdentifier.FieldName!=null)
-        EditContext?.NotifyFieldChanged(fieldIdentifier);
+    this.NotifyToModel();
+  }
 
-    if(isChecked.Value && OnChecked.HasDelegate)
-        await OnChecked.InvokeAsync(isChecked.Value);
-    
-    if(!isChecked.Value && OnUnChecked.HasDelegate)
-        await OnUnChecked.InvokeAsync(isChecked.Value);
+  private void NotifyToModel()
+  {
+    if (fieldIdentifier.FieldName != null)
+      EditContext?.NotifyFieldChanged(fieldIdentifier);
 
+    if (isChecked.HasValue)
+    {
+      if (isChecked.Value && OnChecked.HasDelegate)
+        OnChecked.InvokeAsync(true);
+
+      if (!isChecked.Value && OnUnChecked.HasDelegate)
+        OnUnChecked.InvokeAsync(false);
+    }
+
+    StateHasChanged();
   }
 
 }

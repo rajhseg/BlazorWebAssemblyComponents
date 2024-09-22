@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace WebComponents.Components.Controls.Button
 {
-    public partial class RButton
+    public partial class RButton : IEntity
     {
+        public string _id { get; private set; }
+
         private string styles = "";
 
         [Parameter(CaptureUnmatchedValues = true)]
@@ -15,19 +17,12 @@ namespace WebComponents.Components.Controls.Button
         public EditContext? EditContext { get; set; }
 
         [Parameter]
-        public string style
+        public string ButtonStyle
         {
             set
             {
                 var val = value.Trim();
-                if (val != "")
-                {
-                    styles = val.Substring(1, val.Length - 2);
-                }
-                else
-                {
-                    styles = "";
-                }
+                styles = val;
             }
             get
             {
@@ -62,14 +57,35 @@ namespace WebComponents.Components.Controls.Button
         [Parameter]
         public RenderFragment Content { get; set; }
 
+        public RButton()
+        {
+
+        }
+
         protected override Task OnInitializedAsync()
         {
-            if(EditContext==null){
-                if(this.OnValidSubmit.HasDelegate || this.OnInValidSubmit.HasDelegate){
+            if (EditContext == null)
+            {
+                if (this.OnValidSubmit.HasDelegate || this.OnInValidSubmit.HasDelegate)
+                {
                     throw new Exception("Button should be inside EditForm, when OnValidSubmit or OnInValidSubmit is Assigned or Use only ButtonClick handler if it is outside of EditForm.");
                 }
             }
             return base.OnInitializedAsync();
+        }
+
+        protected override Task OnAfterRenderAsync(bool firstRender)
+        {
+            if (firstRender)
+            {
+                if (string.IsNullOrEmpty(this._id))
+                {
+                    this._id = "rbutton_" + Guid.NewGuid().ToString().ToLower();
+                }
+
+                StateHasChanged();
+            }
+            return base.OnAfterRenderAsync(firstRender);
         }
 
         private async Task OnClick(EventArgs e)
@@ -101,7 +117,8 @@ namespace WebComponents.Components.Controls.Button
         }
     }
 
-    public static class RButtonType {
+    public static class RButtonType
+    {
         public static string Button = "button";
 
         public static string Menu = "menu";

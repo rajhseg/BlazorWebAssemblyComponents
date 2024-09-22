@@ -1,9 +1,9 @@
 ﻿
 
 
-<div class="txtroot">
+<div id="@_id" class="txtroot">
     <span class="span" style="width: @(TextBoxWidth)px; 
-                            color: @LabelForeColor;"> 
+                            color: @LabelForeColor; @LabelStyle"> 
         @LabelText  
     </span>
      
@@ -17,7 +17,7 @@
             width: @(TextBoxWidth)px;
             border-bottom-color: @BottomLineColor;       
             margin-bottom: @(EnableMarginTextBottom ? (this.MarginTextBottom) : 0 )px; 
-            @style"
+            @TextboxStyle"
 
        placeholder="@PlaceholderText" 
        @onclick="((e)=> txtboxClicked(e))"

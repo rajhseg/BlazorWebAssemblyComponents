@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddTransient<IJsConsole, JsConsole>();
+builder.Services.AddRComponentServices();
 
 var app = builder.Build();
 
