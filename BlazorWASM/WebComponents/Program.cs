@@ -1,6 +1,6 @@
 using Microsoft.JSInterop;
 using WebComponents.Components;
-using WebComponents.Components.Controls;
+using RWebComponents.Controls;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,12 +1,13 @@
 ﻿@page "/"
 
 @using System.ComponentModel.DataAnnotations;
-@using WebComponents.Components.Controls.GroupPanel
-@using WebComponents.Components.Controls.Radio
-@using WebComponents.Components.Controls.TextBox;
-@using WebComponents.Components.Controls.Button;
-@using WebComponents.Components.Controls.Switch;
-@using WebComponents.Components.Controls.Checkbox;
+@using RWebComponents.Controls.GroupPanel
+@using RWebComponents.Controls.Radio
+@using RWebComponents.Controls.TextBox;
+@using RWebComponents.Controls.Button;
+@using RWebComponents.Controls.Switch;
+@using RWebComponents.Controls.Checkbox;
+@using RWebComponents.Controls.Canvas;
 
 <EditForm Model="@ProfileInfo" FormName="fname" 
                                 OnInvalidSubmit="OnInValidSubmit" 
@@ -100,6 +101,13 @@
 
     </div>
 
+    <br/>
+    <br/>
+    <br/>
+
+    <RCanvas @ref="Canv" Width="200" Height="200"></RCanvas>
+    <RButton ButtonWidth="200px" ButtonClick="CreateCanvas"><Content>Create Canvas</Content></RButton>
+
  </EditForm> 
     
 <br/>
@@ -124,10 +132,44 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private EditContext? context;    
 
+    private RCanvas Canv {get; set;}
+
+    private CanvasContext canvasContext;
+
     public Profile ProfileInfo {get; set; } = new Profile() {IsTenthPass = true};
 
     protected override void OnInitialized() {
        this.context = new (ProfileInfo);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        
+    }
+
+    private async Task CreateCanvas(){
+        
+        canvasContext = await this.Canv.CreateContext2DAsync();
+
+        if(canvasContext!=null)
+        {
+            await canvasContext.BeginPathAsync();
+            canvasContext.LineWidth = 2;
+            var met = await canvasContext.MeasureTextAsync("Sample Title");
+            await canvasContext.MoveToAsync(0, 0);
+            await canvasContext.LineToAsync(300, 170);
+            await canvasContext.StrokeAsync();
+            await canvasContext.ClosePathAsync();
+
+            await canvasContext.BeginPathAsync();
+            var res = await canvasContext.CreateLinearGradientAsync(0,0,270, 0);
+            await res.AddColorStopAsync(0, "blue");
+            await res.AddColorStopAsync(0.7, "yellow");
+            await res.AddColorStopAsync(1, "red");
+            canvasContext.FillStyle = res.RsubId;
+            await canvasContext.FillRectAsync(20,20,150,100);
+            await canvasContext.ClosePathAsync();
+        }
     }
 
     private void ClearForm(RButtonEventArgs e)

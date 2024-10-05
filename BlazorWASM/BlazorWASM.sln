@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebComponents", "WebComponents\WebComponents.csproj", "{13BB8D62-4799-465B-B4DF-EAA14FC36596}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RWebComponents", "RWebComponents\RWebComponents.csproj", "{AF811761-30EA-4838-AA38-D30A79ED37F7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{13BB8D62-4799-465B-B4DF-EAA14FC36596}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13BB8D62-4799-465B-B4DF-EAA14FC36596}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13BB8D62-4799-465B-B4DF-EAA14FC36596}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF811761-30EA-4838-AA38-D30A79ED37F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF811761-30EA-4838-AA38-D30A79ED37F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF811761-30EA-4838-AA38-D30A79ED37F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF811761-30EA-4838-AA38-D30A79ED37F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
