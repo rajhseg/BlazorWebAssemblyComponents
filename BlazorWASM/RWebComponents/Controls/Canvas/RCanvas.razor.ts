@@ -1,5 +1,7 @@
 
 
+
+
 let Dict: { [key : string]: CanvasRenderingContext2D } = {};
 
 let num = 111;
@@ -42,14 +44,8 @@ let objsAddToDict = [
 }
 
  export function ConvertToJsonString(obj: object){
-    let value = JSON.stringify(MapProps(obj)).toString();
-    console.log("context");
-    console.log(obj);
-    console.log(value);
-    
+    let value = JSON.stringify(MapProps(obj)).toString();        
     let jsonObj = ConvertToJson(value);
-
-    console.log(jsonObj);
 
     return jsonObj;
 }
@@ -76,8 +72,27 @@ export function DispatchOperation(args: { prop: any[] }){
     if(args && args.prop.length > 0) {
         let id = args.prop[0];
         let functionname = args.prop[1];
-        let parameters = args.prop.slice(2);
-        
+
+        let removeCount = 0;
+        let readLastIndex = 0;
+
+        for (let index = args.prop.length -1; index > 1; index--) {
+            const element = args.prop[index];
+            if(element==null){
+                removeCount++;
+            } else {
+                readLastIndex = index;
+                break;
+            }
+        }
+
+        let parameters = [];
+
+        for (let index = 2; index <= readLastIndex; index++) {
+            const element = args.prop[index];
+            parameters.push(element);
+        }
+                
         let context = Dict[id];
         
         if(context){
@@ -93,9 +108,28 @@ export function DispatchOperationReturn(args: { prop: any[] }): any {
         
     if(args && args.prop.length > 0) {
         let id = args.prop[0];
-        let functionname = args.prop[1];
-        let parameters = args.prop.slice(2);
-                      
+        let functionname = args.prop[1];        
+                                      
+        let removeCount = 0;
+        let readLastIndex = 0;
+
+        for (let index = args.prop.length -1; index > 1; index--) {
+            const element = args.prop[index];
+            if(element==null){
+                removeCount++;
+            } else {
+                readLastIndex = index;
+                break;
+            }
+        }
+
+        let parameters = [];
+
+        for (let index = 2; index <= readLastIndex; index++) {
+            const element = args.prop[index];
+            parameters.push(element);
+        }
+
         let findIndex = objsAddToDict.findIndex(x=>x.toLowerCase()==functionname.toLowerCase());
 
         if(findIndex > -1){

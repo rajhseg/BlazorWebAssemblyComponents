@@ -1,6 +1,7 @@
 ﻿@page "/"
 
 @using System.ComponentModel.DataAnnotations;
+@using RWebComponents.Controls.DonutChart
 @using RWebComponents.Controls.GroupPanel
 @using RWebComponents.Controls.Radio
 @using RWebComponents.Controls.TextBox;
@@ -9,117 +10,118 @@
 @using RWebComponents.Controls.Checkbox;
 @using RWebComponents.Controls.Canvas;
 
-<EditForm Model="@ProfileInfo" FormName="fname" 
-                                OnInvalidSubmit="OnInValidSubmit" 
-                                OnValidSubmit="ValidSubmit"> 
+<EditForm Model="@ProfileInfo" FormName="fname" OnInvalidSubmit="OnInValidSubmit" OnValidSubmit="ValidSubmit">
 
-    <DataAnnotationsValidator />    
+    <DataAnnotationsValidator />
 
-<div style="padding-left: 20px;margin-top:25px;">
+    <div style="padding-left: 20px;margin-top:25px;">
 
-    <RTextbox style="{width:200px;}" 
-        LabelText="Enter Username"        
-        PlaceholderText="Username"   
+        <RTextbox style="{width:200px;}" LabelText="Enter Username" PlaceholderText="Username"
+            ValueExpression="()=> ProfileInfo.User.textValue" @bind-value="ProfileInfo.User.textValue">
+        </RTextbox>
 
-        ValueExpression="()=> ProfileInfo.User.textValue"        
-        @bind-value="ProfileInfo.User.textValue">
-    </RTextbox>
+        <ValidationMessage style="color: blueviolet;" For="(()=> ProfileInfo.User.textValue)" />
 
-    <ValidationMessage style="color: blueviolet;" For="(()=> ProfileInfo.User.textValue)"/> 
+        <br />
 
-    <br />
+        <RTextbox TextboxStyle="width:200px;" LabelText="Enter Password" PlaceholderText="Password" IsPasswordBox=true
+            ValueExpression="()=> ProfileInfo.User.pass" @bind-value="ProfileInfo.User.pass">
+        </RTextbox>
 
-    <RTextbox TextboxStyle="width:200px;" 
-        LabelText="Enter Password"        
-        PlaceholderText="Password" 
-        IsPasswordBox=true         
+        <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.User.pass)" />
 
-        ValueExpression="()=> ProfileInfo.User.pass"
-        @bind-value="ProfileInfo.User.pass">
-    </RTextbox>
+        <br />
 
-    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.User.pass)"/> 
+        <RSwitch ValueExpression="()=> ProfileInfo.IsTenthPass" DisplayLabel="Is Tenth Pass"
+            @bind-value="@ProfileInfo.IsTenthPass"></RSwitch>
 
-    <br />
+        <RSwitch ValueExpression="()=> ProfileInfo.IsCricket" SwitchBackColor="pink" DisplayLabel="Is Graduate"
+            @bind-value="@ProfileInfo.IsCricket"></RSwitch>
 
-    <RSwitch ValueExpression="()=> ProfileInfo.IsTenthPass" DisplayLabel="Is Tenth Pass" 
-        @bind-value="@ProfileInfo.IsTenthPass"></RSwitch>
-    
-    <RSwitch ValueExpression="()=> ProfileInfo.IsCricket" SwitchBackColor="pink" DisplayLabel="Is Graduate" 
-        @bind-value="@ProfileInfo.IsCricket"></RSwitch>
-        
-    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
-    <br />
-    <RCheckbox LabelStyle="color:blue" DisplayText="Is Cricket" 
-        ValueExpression="()=> ProfileInfo.IsCricket" 
-        @bind-value="@ProfileInfo.IsCricket"></RCheckbox>
-    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
-    <br />
+        <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
+        <br />
+        <RCheckbox LabelStyle="color:blue" DisplayText="Is Cricket" ValueExpression="()=> ProfileInfo.IsCricket"
+            @bind-value="@ProfileInfo.IsCricket"></RCheckbox>
+        <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
+        <br />
 
-    <RCheckbox LabelStyle="color:blue" DisplayText="Is Tennis" 
-        ValueExpression="()=> ProfileInfo.IsTennis" OnChecked="TennisSelected"
-             @bind-value="@ProfileInfo.IsTennis"></RCheckbox>
-    <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsTennis)" />
-    <br />
+        <RCheckbox LabelStyle="color:blue" DisplayText="Is Tennis" ValueExpression="()=> ProfileInfo.IsTennis"
+            OnChecked="TennisSelected" @bind-value="@ProfileInfo.IsTennis"></RCheckbox>
+        <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsTennis)" />
+        <br />
 
-    <RCheckbox LabelStyle="color:blue" DisplayText="Is Volleyball" 
-        ValueExpression="()=> ProfileInfo.IsVolleyball" 
-          @bind-value="@ProfileInfo.IsVolleyball"></RCheckbox>
-    <ValidationMessage style="color:rgba(108, 65, 148, 0.616)" For="(()=> ProfileInfo.IsVolleyball)" />
-    <br />        
-        
-    <RGroupPanel ContentStyle="width:330px" GroupName="Sports" 
-                 LabelStyle="color:purple;" IsItemsArrangeHorizontal="true">
-        <Content>
-                     
-            <RRadio LabelStyle="color:blue" DisplayText="Is Baseball" 
-                GroupName="sports"
-                ValueExpression="()=> ProfileInfo.IsBaseball" 
-                @bind-value="@ProfileInfo.IsBaseball"></RRadio>                        
+        <RCheckbox LabelStyle="color:blue" DisplayText="Is Volleyball" ValueExpression="()=> ProfileInfo.IsVolleyball"
+            @bind-value="@ProfileInfo.IsVolleyball"></RCheckbox>
+        <ValidationMessage style="color:rgba(108, 65, 148, 0.616)" For="(()=> ProfileInfo.IsVolleyball)" />
+        <br />
 
-            <RRadio LabelStyle="color:blue" DisplayText="Is Football" 
-                GroupName="sports"
-                ValueExpression="()=> ProfileInfo.IsFootball" 
-                    @bind-value="@ProfileInfo.IsFootball"></RRadio>            
-            
-            <RRadio LabelStyle="color:blue" DisplayText="Is Hockey" 
-                GroupName="sports"
-                ValueExpression="()=> ProfileInfo.IsHockey" 
-                @bind-value="@ProfileInfo.IsHockey"></RRadio>
-                         
-        </Content>
-    </RGroupPanel>
+        <RGroupPanel ContentStyle="width:330px" GroupName="Sports" LabelStyle="color:purple;"
+            IsItemsArrangeHorizontal="true">
+            <Content>
 
-    <br/>
-    <RButton ButtonType="submit">
-        <Content>Submit</Content>
-    </RButton>
+                <RRadio LabelStyle="color:blue" DisplayText="Is Baseball" GroupName="sports"
+                    ValueExpression="()=> ProfileInfo.IsBaseball" @bind-value="@ProfileInfo.IsBaseball"></RRadio>
 
-    <RButton BackgroundColor="orange" ButtonType="RButtonType.Button" ButtonClick="(e) => ClearForm(e)">
-        <Content>Clear</Content>
-    </RButton>
+                <RRadio LabelStyle="color:blue" DisplayText="Is Football" GroupName="sports"
+                    ValueExpression="()=> ProfileInfo.IsFootball" @bind-value="@ProfileInfo.IsFootball"></RRadio>
+
+                <RRadio LabelStyle="color:blue" DisplayText="Is Hockey" GroupName="sports"
+                    ValueExpression="()=> ProfileInfo.IsHockey" @bind-value="@ProfileInfo.IsHockey"></RRadio>
+
+            </Content>
+        </RGroupPanel>
+
+        <br />
+        <RButton ButtonType="submit">
+            <Content>Submit</Content>
+        </RButton>
+
+        <RButton BackgroundColor="orange" ButtonType="RButtonType.Button" ButtonClick="(e) => ClearForm(e)">
+            <Content>Clear</Content>
+        </RButton>
 
     </div>
 
-    <br/>
-    <br/>
-    <br/>
+    <br />
+    <br />
+    <br />
 
     <RCanvas @ref="Canv" Width="200" Height="200"></RCanvas>
-    <RButton ButtonWidth="200px" ButtonClick="CreateCanvas"><Content>Create Canvas</Content></RButton>
+    <RButton ButtonWidth="200px" ButtonClick="CreateCanvas">
+        <Content>Create Canvas</Content>
+    </RButton>
 
- </EditForm> 
+    <br/>
+    <br/>    
+
+
+    <RDonutChart DonutContainerStyle="float:left;" DataListHeight="140" ChartWidth="150" ShadowColor="blue" 
+        MoveTextUpwardsFromCenterInPx="20" Opacity="0.8" Items="pieItems">
+    </RDonutChart>
+
+    <RDonutChart DonutContainerStyle="float:left;" DataListHeight="100" ChartWidth="300" ShadowColor="blue" 
+        Opacity="0.8" Items="pieItems">
+    </RDonutChart>
+
+    <RDonutChart DataListHeight="100" ChartWidth="300" ShadowColor="red" Opacity="0.8" 
+        Items="pieItems">
+    </RDonutChart>
     
-<br/>
+</EditForm>
+
+
+
+
+<br />
 UserName : @ProfileInfo?.User?.textValue <br />
 Password : @ProfileInfo?.User?.pass <br />
 Tenth Pass: @ProfileInfo?.IsTenthPass <br />
-IsCricket : @ProfileInfo?.IsCricket <br/>
-IsTennis : @ProfileInfo?.IsTennis <br/>
+IsCricket : @ProfileInfo?.IsCricket <br />
+IsTennis : @ProfileInfo?.IsTennis <br />
 IsVolleyBall : @ProfileInfo?.IsVolleyball <br />
 
-IsBaseball : @ProfileInfo?.IsBaseball <br/>
-IsFootball : @ProfileInfo?.IsFootball <br/>
+IsBaseball : @ProfileInfo?.IsBaseball <br />
+IsFootball : @ProfileInfo?.IsFootball <br />
 IsHockey : @ProfileInfo?.IsHockey <br />
 
 <br />
@@ -130,16 +132,21 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
 @code {
 
-    private EditContext? context;    
+    private EditContext? context;
 
-    private RCanvas Canv {get; set;}
+    private RCanvas Canv { get; set; }
+
+    private List<RDonutChartItem> pieItems { get; set; } = new List<RDonutChartItem>();
 
     private CanvasContext canvasContext;
 
-    public Profile ProfileInfo {get; set; } = new Profile() {IsTenthPass = true};
+    public Profile ProfileInfo { get; set; } = new Profile() { IsTenthPass = true };
 
-    protected override void OnInitialized() {
-       this.context = new (ProfileInfo);
+    protected override async Task OnInitializedAsync()
+    {
+        this.context = new(ProfileInfo);
+        this.CreateDonutItems();
+        await InvokeAsync(()=> StateHasChanged());
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -147,11 +154,28 @@ IsHockey : @ProfileInfo?.IsHockey <br />
         
     }
 
-    private async Task CreateCanvas(){
-        
+    private void CreateDonutItems()
+    {
+        var pieItem1 = new RDonutChartItem(24, "Cricket", "blue", "white");
+        var pieItem2 = new RDonutChartItem(35, "Volleyball", "purple", "white");
+        var pieItem3 = new RDonutChartItem(12, "Tennis", "yellow", "white");
+        var pieItem4 = new RDonutChartItem(44, "BaseBall", "#6CEBC5", "white");
+        var pieItem5 = new RDonutChartItem(14, "Hockey", "orangered", "white");
+        var pieItem6 = new RDonutChartItem(44, "Football", "green", "white");
+
+        this.pieItems.Add(pieItem1);
+        this.pieItems.Add(pieItem2);
+        this.pieItems.Add(pieItem3);
+        this.pieItems.Add(pieItem4);
+        this.pieItems.Add(pieItem5);
+        this.pieItems.Add(pieItem6);
+    }
+
+    private async Task CreateCanvas()
+    {
         canvasContext = await this.Canv.CreateContext2DAsync();
 
-        if(canvasContext!=null)
+        if (canvasContext != null)
         {
             await canvasContext.BeginPathAsync();
             canvasContext.LineWidth = 2;
@@ -162,12 +186,12 @@ IsHockey : @ProfileInfo?.IsHockey <br />
             await canvasContext.ClosePathAsync();
 
             await canvasContext.BeginPathAsync();
-            var res = await canvasContext.CreateLinearGradientAsync(0,0,270, 0);
+            var res = await canvasContext.CreateLinearGradientAsync(0, 0, 270, 0);
             await res.AddColorStopAsync(0, "blue");
             await res.AddColorStopAsync(0.7, "yellow");
             await res.AddColorStopAsync(1, "red");
             canvasContext.FillStyle = res.RsubId;
-            await canvasContext.FillRectAsync(20,20,150,100);
+            await canvasContext.FillRectAsync(20, 20, 150, 100);
             await canvasContext.ClosePathAsync();
         }
     }
@@ -181,7 +205,7 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private void TennisSelected()
     {
-        
+
     }
 
     private void SubmitForm(EditContext context)
@@ -196,7 +220,7 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private void ValidSubmit()
     {
-        
+
     }
 
     public void focusIn(FocusEventArgs e)
@@ -209,7 +233,7 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     }
 
-}    
+}
 
 @code {
 
@@ -219,34 +243,34 @@ IsHockey : @ProfileInfo?.IsHockey <br />
         public string textValue { get; set; }
 
         [Required(ErrorMessage = "please enter password!!!")]
-        public string pass { get; set; }        
+        public string pass { get; set; }
 
     }
 
-    public class Profile 
+    public class Profile
     {
-        [Required(ErrorMessage ="Please enter Tenth pass or not")]
-        public bool? IsTenthPass {get; set;}
+        [Required(ErrorMessage = "Please enter Tenth pass or not")]
+        public bool? IsTenthPass { get; set; }
 
-        public UserInfo User {get; set; } = new UserInfo();
+        public UserInfo User { get; set; } = new UserInfo();
 
-        [Required(ErrorMessage ="Please enter playing Cricket or not")]
-        public bool? IsCricket {get;set;}
+        [Required(ErrorMessage = "Please enter playing Cricket or not")]
+        public bool? IsCricket { get; set; }
 
-        [Required(ErrorMessage ="Please enter playing volleyball or not")]
-        public bool? IsVolleyball {get; set;}
+        [Required(ErrorMessage = "Please enter playing volleyball or not")]
+        public bool? IsVolleyball { get; set; }
 
-        [Required(ErrorMessage ="Please enter playing tennis or not")]
-        public bool? IsTennis {get;set;}
+        [Required(ErrorMessage = "Please enter playing tennis or not")]
+        public bool? IsTennis { get; set; }
 
-        
-        [Required(ErrorMessage ="Please enter playing IsBaseball or not")]
-        public bool? IsBaseball {get;set;}
 
-        [Required(ErrorMessage ="Please enter playing Football or not")]
-        public bool? IsFootball {get; set;}
+        [Required(ErrorMessage = "Please enter playing IsBaseball or not")]
+        public bool? IsBaseball { get; set; }
 
-        [Required(ErrorMessage ="Please enter playing Hockey or not")]
-        public bool? IsHockey {get;set;}
+        [Required(ErrorMessage = "Please enter playing Football or not")]
+        public bool? IsFootball { get; set; }
+
+        [Required(ErrorMessage = "Please enter playing Hockey or not")]
+        public bool? IsHockey { get; set; }
     }
 }

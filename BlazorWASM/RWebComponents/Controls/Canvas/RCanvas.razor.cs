@@ -8,6 +8,10 @@ namespace RWebComponents.Controls.Canvas;
 
 public partial class RCanvas : ICanvasEntity, IAsyncDisposable
 {
+    public Func<Task> ScriptLoaded;
+
+    public bool IsScriptLoaded = false;
+
     public string _containerId { get; private set; }
 
     public string _id { get; private set; }
@@ -33,8 +37,11 @@ public partial class RCanvas : ICanvasEntity, IAsyncDisposable
     {
         set
         {
-            var val = value.Trim();
-            _canvasStyle = val;
+            if(value!=null)
+            {
+                var val = value.Trim();
+                _canvasStyle = val;
+            }
         }
         get
         {
@@ -52,6 +59,12 @@ public partial class RCanvas : ICanvasEntity, IAsyncDisposable
             this.jsModule = await Runtime.InvokeAsync<IJSObjectReference>("import", "./_content/RWebComponents/Controls/Canvas/RCanvas.razor.js");
 
             await InvokeAsync(()=> StateHasChanged());
+
+            if(ScriptLoaded != null && this.jsModule != null)
+            {
+                this.IsScriptLoaded = true;
+                await this.ScriptLoaded();
+            }
         }
         
         await base.OnAfterRenderAsync(firstRender);
