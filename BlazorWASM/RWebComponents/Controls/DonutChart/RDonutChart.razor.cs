@@ -8,10 +8,11 @@ namespace RWebComponents.Controls.DonutChart;
 
 public partial class RDonutChart
 {
+    private readonly object lockObj = new object();
 
     [Parameter]
-    public string DonutContainerStyle {get; set; }
-    
+    public string DonutContainerStyle { get; set; }
+
     [Parameter]
     public int FontSize { get; set; } = 10;
 
@@ -72,20 +73,42 @@ public partial class RDonutChart
         }
         set
         {
-
-            this._items = new List<RRenderDonutChartItem>();
-
-            if (value != null)
+            lock (lockObj)
             {
-                for (var index = 0; index < value.Count(); index++)
+                if (value != null)
                 {
-                    var element = value[index];
-                    var itm = new RRenderDonutChartItem(element.Value, element.Title, element.BackgroundColor, element.ForeColor);
-                    this._items.Add(itm);
+                    var inputList = value;
+                    var sameList = false;
+
+                    if (this._items.Count > 0)
+                    {
+                        var existList = this._items.Select(x => x.ConverToItem());
+
+                        var a = existList.Except(inputList).Any();
+                        var b = inputList.Except(existList).Any();
+                        sameList = !a && !b && inputList.Count == existList.Count();
+                    }
+
+                    if (sameList)
+                    {
+                        return;
+                    }
                 }
 
-                this.RenderChart().GetAwaiter();                
+                this._items = new List<RRenderDonutChartItem>();
+                
+                if (value != null)
+                {
+                    for (var index = 0; index < value.Count(); index++)
+                    {
+                        var element = value[index];
+                        var itm = new RRenderDonutChartItem(element.Value, element.Title, element.BackgroundColor, element.ForeColor);
+                        this._items.Add(itm);
+                    }
+                }
             }
+
+            this.RenderChart().GetAwaiter();
         }
     }
 
@@ -94,8 +117,8 @@ public partial class RDonutChart
         if (this.procan != null)
         {
             this.procan.ScriptLoaded = async () =>
-            {                
-                await this.RenderChart();                
+            {
+                await this.RenderChart();
             };
         }
 
@@ -110,11 +133,18 @@ public partial class RDonutChart
     }
 
     public async Task RenderChart()
-    {        
+    {
         this.IsRendered = false;
         if (this.procan != null && this._items.Count > 0 && this.procan.IsScriptLoaded)
         {
+            if (this.context != null)
+            {
+                await this.context.ResetAsync();
+                await this.context.ResetTransformAsync();
+            }
+
             this.context = await this.procan.CreateContext2DAsync();
+
             await this.context.ClearRectAsync(0, 0, this.procan.Width, this.procan.Height);
             await this.context.RestoreAsync();
             var x = this.ChartWidth / 2;
@@ -151,7 +181,7 @@ public partial class RDonutChart
                 this.context.ShadowColor = this.ShadowColor;
                 await this.context.StrokeAsync();
                 await this.context.ClosePathAsync();
-            
+
                 if (this.ShowTextOnTopOfChartItem)
                 {
                     var endAngle = previousAngle + end1;
@@ -190,12 +220,12 @@ public partial class RDonutChart
 
                 previousAngle = previousAngle + end1;
             }
-            
-            this.canvasStyle = "position: absolute; transform : rotate(-90deg); opacity:"+this.Opacity+";";                        
+
+            this.canvasStyle = "position: absolute; transform : rotate(-90deg); opacity:" + this.Opacity + ";";
 
             this.IsRendered = true;
 
-            await InvokeAsync(()=> StateHasChanged());
+            await InvokeAsync(() => StateHasChanged());
         }
     }
 }

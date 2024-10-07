@@ -1,8 +1,6 @@
 
 
-
-
-let Dict: { [key : string]: CanvasRenderingContext2D } = {};
+let Dict: { [key : string]: any } = {};
 
 let num = 111;
 
@@ -60,9 +58,9 @@ export function DispatchProps(args:{ prop: any[] }){
 
         if(context){
             if(Dict[rsubid]){
-                context[propname] = Dict[rsubid];
+                context[propname] = Dict[rsubid];                
             } else {
-                context[propname] = args.prop[2];
+                context[propname] = args.prop[2];                
             }
         }
     }
@@ -96,7 +94,7 @@ export function DispatchOperation(args: { prop: any[] }){
         let context = Dict[id];
         
         if(context){
-            context[functionname].apply(context, parameters);
+            context[functionname].apply(context, parameters);            
         }
     }
 }
@@ -140,7 +138,7 @@ export function DispatchOperationReturn(args: { prop: any[] }): any {
         let context = Dict[id];
         
         if(context){
-           obj = context[functionname].apply(context, parameters);
+           obj = context[functionname].apply(context, parameters);           
         }
 
         if(resultAddToDict && obj){

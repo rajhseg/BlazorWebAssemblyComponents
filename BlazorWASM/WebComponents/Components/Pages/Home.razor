@@ -86,7 +86,7 @@
     <br />
     <br />
 
-    <RCanvas @ref="Canv" Width="200" Height="200"></RCanvas>
+    <RCanvas @ref="Canv" Width="200" Height="200"></RCanvas> 
     <RButton ButtonWidth="200px" ButtonClick="CreateCanvas">
         <Content>Create Canvas</Content>
     </RButton>
@@ -101,7 +101,7 @@
 
     <RDonutChart DonutContainerStyle="float:left;" DataListHeight="100" ChartWidth="300" ShadowColor="blue" 
         Opacity="0.8" Items="pieItems">
-    </RDonutChart>
+    </RDonutChart> 
 
     <RDonutChart DataListHeight="100" ChartWidth="300" ShadowColor="red" Opacity="0.8" 
         Items="pieItems">
@@ -173,8 +173,18 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private async Task CreateCanvas()
     {
-        canvasContext = await this.Canv.CreateContext2DAsync();
+        var pieItem5 = new RDonutChartItem(14, "F1", "gray", "white");
+        var pieItem6 = new RDonutChartItem(44, "WW", "red", "white");
 
+        this.pieItems.Add(pieItem5);
+        this.pieItems.Add(pieItem6);
+
+        
+        await InvokeAsync(()=> StateHasChanged());
+        
+        
+        canvasContext = await this.Canv.CreateContext2DAsync();
+    
         if (canvasContext != null)
         {
             await canvasContext.BeginPathAsync();
@@ -193,7 +203,8 @@ IsHockey : @ProfileInfo?.IsHockey <br />
             canvasContext.FillStyle = res.RsubId;
             await canvasContext.FillRectAsync(20, 20, 150, 100);
             await canvasContext.ClosePathAsync();
-        }
+        }  
+        
     }
 
     private void ClearForm(RButtonEventArgs e)

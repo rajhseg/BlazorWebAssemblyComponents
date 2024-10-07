@@ -1,6 +1,30 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace RWebComponents.Controls.DonutChart;
+
+public class RDonutChartComparer : IEqualityComparer<RRenderDonutChartItem>
+{
+    public bool Equals(RRenderDonutChartItem? x, RRenderDonutChartItem? y)
+    {
+        if(x==null && y==null)
+        return true;
+
+        if(x==null || y==null)
+        return false;
+
+        return x.BackgroundColor.ToLowerInvariant() == y.BackgroundColor.ToLowerInvariant() 
+            && x.ForeColor.ToLowerInvariant() == y.ForeColor.ToLowerInvariant()
+            && x.Title.ToLowerInvariant() == y.Title.ToLowerInvariant() 
+            && x.Value == y.Value;
+    }
+
+    public int GetHashCode([DisallowNull] RRenderDonutChartItem obj)
+    {
+        return obj.BackgroundColor.GetHashCode() ^ obj.ForeColor.GetHashCode() ^ obj.Title.GetHashCode() 
+        ^ obj.Value.GetHashCode();
+    }
+}
 
 public class RRenderDonutChartItem : RDonutChartItem
 {
