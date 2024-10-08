@@ -1,5 +1,5 @@
 # Blazor WebAssembly Components
-This repo is under development, it is consists of various Controls in Blazor WebAssembly like RTextBox, RButton, RSwitch, RCheckbox, RCanvas, RDonutChart etc.
+This repo is under development, it is consists of various Controls in Blazor WebAssembly like RTextBox, RButton, RSwitch, RCheckbox, RCanvas, RDonutChart, RPieChart etc.
 
 RTextbox
 ----------------------------------
@@ -48,4 +48,14 @@ RDonutChart
 ![image](https://github.com/user-attachments/assets/a67b5082-f366-432c-893a-ed23cda887b5)
 
 <br/>
+
+RPieChart
+--------------------------------------
+![image](https://github.com/user-attachments/assets/da700d72-da01-4ab6-8fbd-2e39087639e9)
+
+<br/>
+
+
+
+
 
