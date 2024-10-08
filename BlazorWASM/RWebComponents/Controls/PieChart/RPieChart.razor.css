@@ -1,0 +1,34 @@
+
+
+
+
+
+.data {
+    font-size: small;
+    display: flex;
+    flex-direction: row;    
+    align-items: center;    
+}
+
+.dataContainer {
+    float: left; 
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.indicator {
+    width: 5px; 
+    height: 5px;
+    float: left;
+    margin-right: 4px;
+}
+
+.title {
+    float: left;
+    margin-right: 5px;
+    color: black;
+    padding: 5px;
+    text-overflow: ellipsis;
+}

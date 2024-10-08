@@ -3,6 +3,7 @@
 @using System.ComponentModel.DataAnnotations;
 @using RWebComponents.Controls.DonutChart
 @using RWebComponents.Controls.GroupPanel
+@using RWebComponents.Controls.PieChart
 @using RWebComponents.Controls.Radio
 @using RWebComponents.Controls.TextBox;
 @using RWebComponents.Controls.Button;
@@ -106,6 +107,25 @@
     <RDonutChart DataListHeight="100" ChartWidth="300" ShadowColor="red" Opacity="0.8" 
         Items="pieItems">
     </RDonutChart>
+
+    <br/>
+    <br/>
+
+    <RPieChart PieContainerStyle="float:left" DataListHeight="140" ChartWidth="150"
+        MoveTextUpwardsFromCenterInPx="5" RotateTextToInlineAngle="true" Items="pieItems1"
+        Opacity="0.8"></RPieChart>
+
+    
+    <RPieChart PieContainerStyle="float:left" DataListHeight="100" ChartWidth="300"
+        MoveTextUpwardsFromCenterInPx="-20" Items="pieItems1" Opacity="0.8"></RPieChart>
+
+    
+    <RPieChart DataListHeight="100" ChartWidth="300"
+        MoveTextUpwardsFromCenterInPx="-30" ShadowColor="red" Items="pieItems1"
+        Opacity="0.8"></RPieChart>
+
+    <br/>
+    <br/>
     
 </EditForm>
 
@@ -138,6 +158,9 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private List<RDonutChartItem> pieItems { get; set; } = new List<RDonutChartItem>();
 
+    private List<RPieChartItem> pieItems1 { get; set; } = new List<RPieChartItem>();
+
+
     private CanvasContext canvasContext;
 
     public Profile ProfileInfo { get; set; } = new Profile() { IsTenthPass = true };
@@ -146,6 +169,7 @@ IsHockey : @ProfileInfo?.IsHockey <br />
     {
         this.context = new(ProfileInfo);
         this.CreateDonutItems();
+        this.CreatePieItems();
         await InvokeAsync(()=> StateHasChanged());
     }
 
@@ -171,6 +195,22 @@ IsHockey : @ProfileInfo?.IsHockey <br />
         this.pieItems.Add(pieItem6);
     }
 
+    private void CreatePieItems(){
+        var pieItem1 = new RPieChartItem(24, "Cricket", "blue", "white");
+        var pieItem2 = new RPieChartItem(35, "Volleyball", "purple", "white");
+        var pieItem3 = new RPieChartItem(12, "Tennis", "yellow", "white");
+        var pieItem4 = new RPieChartItem(44, "BaseBall", "#6CEBC5", "white");
+        var pieItem5 = new RPieChartItem(14, "Hockey", "orangered", "white");
+        var pieItem6 = new RPieChartItem(44, "Football", "green", "white");
+
+        this.pieItems1.Add(pieItem1);
+        this.pieItems1.Add(pieItem2);
+        this.pieItems1.Add(pieItem3);
+        this.pieItems1.Add(pieItem4);
+        this.pieItems1.Add(pieItem5);
+        this.pieItems1.Add(pieItem6);
+    }
+
     private async Task CreateCanvas()
     {
         var pieItem5 = new RDonutChartItem(14, "F1", "gray", "white");
@@ -179,6 +219,11 @@ IsHockey : @ProfileInfo?.IsHockey <br />
         this.pieItems.Add(pieItem5);
         this.pieItems.Add(pieItem6);
 
+        var pieItem51 = new RPieChartItem(14, "F1", "gray", "white");
+        var pieItem61 = new RPieChartItem(44, "WW", "red", "white");
+
+        this.pieItems1.Add(pieItem51);
+        this.pieItems1.Add(pieItem61);
         
         await InvokeAsync(()=> StateHasChanged());
         
