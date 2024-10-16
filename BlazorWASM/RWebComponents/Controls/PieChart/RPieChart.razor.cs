@@ -172,7 +172,7 @@ public partial class RPieChart
                 element.Percentage = percentage;
                 this.context.FillStyle = element.BackgroundColor;
                 await this.context.BeginPathAsync();
-                this.context.LineWidth = 2;
+                this.context.LineWidth = 0.4;
 
                 await this.context.MoveToAsync(x, y);
                 await this.context.ArcAsync(x, y, radius - 10, previousAngle, previousAngle + end1, false);
@@ -228,7 +228,7 @@ public partial class RPieChart
             await this.context.BeginPathAsync();
             await this.context.MoveToAsync(x, y);
             await this.context.LineToAsync(x + x - 10, y);
-            this.context.LineWidth = 2;
+            this.context.LineWidth = 0.4;
             this.context.ShadowBlur = 10;
             this.context.ShadowColor = this.ShadowColor;
             await this.context.StrokeAsync();
