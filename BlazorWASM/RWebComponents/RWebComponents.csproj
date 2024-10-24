@@ -11,8 +11,9 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.8" />    
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,14 @@ var Dict = {};
 var num = 111;
 var objsAddToDict = [
     'createConicGradient', 'createLinearGradient', 'createRadialGradient',
-    'createPattern'
+    'createPattern', 'getTransform', 'invertSelf', 'multiplySelf',
+    'preMultiplySelf', 'rotateAxisAngleSelf', 'rotateFromVectorSelf',
+    'rotateSelf', 'scale3dSelf', 'scaleSelf', 'setMatrixValue',
+    'skewXSelf', 'skewYSelf', 'translateSelf',
+    'translate', 'transformPoint',
+    'skewY', 'skewX', 'scaleNonUniform', 'scale3d',
+    'scale', 'rotateFromVector', 'rotateAxisAngle', 'rotate',
+    'multiply', 'inverse', 'flipY', 'flipX', 'matrixTransform'
 ];
 export function ClearContext(obj) {
 }
@@ -52,23 +59,8 @@ export function DispatchOperation(args) {
     if (args && args.prop.length > 0) {
         var id = args.prop[0];
         var functionname = args.prop[1];
-        var removeCount = 0;
-        var readLastIndex = 0;
-        for (var index = args.prop.length - 1; index > 1; index--) {
-            var element = args.prop[index];
-            if (element == null) {
-                removeCount++;
-            }
-            else {
-                readLastIndex = index;
-                break;
-            }
-        }
-        var parameters = [];
-        for (var index = 2; index <= readLastIndex; index++) {
-            var element = args.prop[index];
-            parameters.push(element);
-        }
+        var props = args.prop.slice(2);
+        var parameters = props.filter(function (x) { return x != null; });
         var context = Dict[id];
         if (context) {
             context[functionname].apply(context, parameters);
@@ -81,23 +73,8 @@ export function DispatchOperationReturn(args) {
     if (args && args.prop.length > 0) {
         var id = args.prop[0];
         var functionname_1 = args.prop[1];
-        var removeCount = 0;
-        var readLastIndex = 0;
-        for (var index = args.prop.length - 1; index > 1; index--) {
-            var element = args.prop[index];
-            if (element == null) {
-                removeCount++;
-            }
-            else {
-                readLastIndex = index;
-                break;
-            }
-        }
-        var parameters = [];
-        for (var index = 2; index <= readLastIndex; index++) {
-            var element = args.prop[index];
-            parameters.push(element);
-        }
+        var props = args.prop.slice(2);
+        var parameters = props.filter(function (x) { return x != null; });
         var findIndex = objsAddToDict.findIndex(function (x) { return x.toLowerCase() == functionname_1.toLowerCase(); });
         if (findIndex > -1) {
             num = num + 1;

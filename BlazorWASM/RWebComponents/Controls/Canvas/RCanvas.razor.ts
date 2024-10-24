@@ -1,13 +1,23 @@
 
 
+
+
 let Dict: { [key : string]: any } = {};
 
 let num = 111;
 
 let objsAddToDict = [
                         'createConicGradient', 'createLinearGradient', 'createRadialGradient',
-                        'createPattern'
+                        'createPattern', 'getTransform', 'invertSelf', 'multiplySelf',
+                        'preMultiplySelf', 'rotateAxisAngleSelf', 'rotateFromVectorSelf', 
+                        'rotateSelf', 'scale3dSelf','scaleSelf', 'setMatrixValue', 
+                        'skewXSelf', 'skewYSelf', 'translateSelf',
+                        'translate', 'transformPoint',
+                        'skewY', 'skewX', 'scaleNonUniform', 'scale3d',
+                        'scale', 'rotateFromVector', 'rotateAxisAngle', 'rotate',
+                        'multiply', 'inverse', 'flipY', 'flipX', 'matrixTransform'
                     ]
+                    
 
  export function ClearContext(obj: {Id: string}){
 
@@ -58,9 +68,9 @@ export function DispatchProps(args:{ prop: any[] }){
 
         if(context){
             if(Dict[rsubid]){
-                context[propname] = Dict[rsubid];                
+                context[propname] = Dict[rsubid];
             } else {
-                context[propname] = args.prop[2];                
+                context[propname] = args.prop[2];
             }
         }
     }
@@ -71,30 +81,13 @@ export function DispatchOperation(args: { prop: any[] }){
         let id = args.prop[0];
         let functionname = args.prop[1];
 
-        let removeCount = 0;
-        let readLastIndex = 0;
-
-        for (let index = args.prop.length -1; index > 1; index--) {
-            const element = args.prop[index];
-            if(element==null){
-                removeCount++;
-            } else {
-                readLastIndex = index;
-                break;
-            }
-        }
-
-        let parameters = [];
-
-        for (let index = 2; index <= readLastIndex; index++) {
-            const element = args.prop[index];
-            parameters.push(element);
-        }
+        let props = args.prop.slice(2);
+        let parameters = props.filter(x => x != null);
                 
         let context = Dict[id];
         
         if(context){
-            context[functionname].apply(context, parameters);            
+            context[functionname].apply(context, parameters);
         }
     }
 }
@@ -107,27 +100,10 @@ export function DispatchOperationReturn(args: { prop: any[] }): any {
     if(args && args.prop.length > 0) {
         let id = args.prop[0];
         let functionname = args.prop[1];        
-                                      
-        let removeCount = 0;
-        let readLastIndex = 0;
-
-        for (let index = args.prop.length -1; index > 1; index--) {
-            const element = args.prop[index];
-            if(element==null){
-                removeCount++;
-            } else {
-                readLastIndex = index;
-                break;
-            }
-        }
-
-        let parameters = [];
-
-        for (let index = 2; index <= readLastIndex; index++) {
-            const element = args.prop[index];
-            parameters.push(element);
-        }
-
+                              
+        let props = args.prop.slice(2);
+        let parameters = props.filter(x => x != null);
+        
         let findIndex = objsAddToDict.findIndex(x=>x.toLowerCase()==functionname.toLowerCase());
 
         if(findIndex > -1){
@@ -138,7 +114,7 @@ export function DispatchOperationReturn(args: { prop: any[] }): any {
         let context = Dict[id];
         
         if(context){
-           obj = context[functionname].apply(context, parameters);           
+           obj = context[functionname].apply(context, parameters);
         }
 
         if(resultAddToDict && obj){
