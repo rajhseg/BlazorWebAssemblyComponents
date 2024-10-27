@@ -16,7 +16,7 @@ let objsAddToDict = [
                         'skewY', 'skewX', 'scaleNonUniform', 'scale3d',
                         'scale', 'rotateFromVector', 'rotateAxisAngle', 'rotate',
                         'multiply', 'inverse', 'flipY', 'flipX', 'matrixTransform'
-                    ]
+                    ];
                     
 
  export function ClearContext(obj: {Id: string}){
