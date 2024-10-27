@@ -51,7 +51,7 @@ let objsAddToDict = [
     return value;
 }
 
- export function ConvertToJsonString(obj: object){
+export function ConvertToJsonString(obj: object){
     let value = JSON.stringify(MapProps(obj)).toString();        
     let jsonObj = ConvertToJson(value);
 
@@ -81,9 +81,26 @@ export function DispatchOperation(args: { prop: any[] }){
         let id = args.prop[0];
         let functionname = args.prop[1];
 
-        let props = args.prop.slice(2);
-        let parameters = props.filter(x => x != null);
-                
+        let removeCount = 0;
+        let readLastIndex = 0;
+
+        for (let index = args.prop.length -1; index > 1; index--) {
+            const element = args.prop[index];
+            if(element==null){
+                removeCount++;
+            } else {
+                readLastIndex = index;
+                break;
+            }
+        }
+
+        let parameters = [];
+
+        for (let index = 2; index <= readLastIndex; index++) {
+            const element = args.prop[index];
+            parameters.push(element);
+        }
+          
         let context = Dict[id];
         
         if(context){
@@ -101,8 +118,25 @@ export function DispatchOperationReturn(args: { prop: any[] }): any {
         let id = args.prop[0];
         let functionname = args.prop[1];        
                               
-        let props = args.prop.slice(2);
-        let parameters = props.filter(x => x != null);
+        let removeCount = 0;
+        let readLastIndex = 0;
+
+        for (let index = args.prop.length -1; index > 1; index--) {
+            const element = args.prop[index];
+            if(element==null){
+                removeCount++;
+            } else {
+                readLastIndex = index;
+                break;
+            }
+        }
+
+        let parameters = [];
+
+        for (let index = 2; index <= readLastIndex; index++) {
+            const element = args.prop[index];
+            parameters.push(element);
+        }
         
         let findIndex = objsAddToDict.findIndex(x=>x.toLowerCase()==functionname.toLowerCase());
 
@@ -174,5 +208,3 @@ export function ConvertToJson(obj: string){
     let value = JSON.parse(obj);
     return value;
 }
-
-// export { CreateContext, ConvertToJsonString };
