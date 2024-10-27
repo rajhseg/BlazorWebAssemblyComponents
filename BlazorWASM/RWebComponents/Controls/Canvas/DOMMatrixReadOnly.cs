@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 
 namespace RWebComponents.Controls.Canvas;
 
+
 public class DOMMatrixReadOnly {
 
      [JsonPropertyName("rsubId")]
@@ -23,30 +24,30 @@ public class DOMMatrixReadOnly {
         get; set;
     }
     
-    public int a { get; set; }
-    public int b { get; set; }
-    public int c { get; set; }
-    public int d { get; set; }
-    public int e { get; set; }
-    public int f { get; set; }
+    public double a { get; set; }
+    public double b { get; set; }
+    public double c { get; set; }
+    public double d { get; set; }
+    public double e { get; set; }
+    public double f { get; set; }
     public bool is2D { get; set; }
     public bool isIdentity { get; set; }
-    public int m11 { get; set; }
-    public int m12 { get; set; }
-    public int  m13 { get; set; }
-    public int m14 { get; set; }
-    public int m21 { get; set; }
-    public int m22 { get; set; }
-    public int m23 { get; set; }
-    public int m24 { get; set; }
-    public int m31 { get; set; }
-    public int m32 { get; set; }
-    public int m33 { get; set; }
-    public int m34 { get; set; }
-    public int m41 { get; set; }
-    public int m42 { get; set; }
-    public int m43 { get; set; }
-    public int m44 { get; set; }
+    public double m11 { get; set; }
+    public double m12 { get; set; }
+    public double  m13 { get; set; }
+    public double m14 { get; set; }
+    public double m21 { get; set; }
+    public double m22 { get; set; }
+    public double m23 { get; set; }
+    public double m24 { get; set; }
+    public double m31 { get; set; }
+    public double m32 { get; set; }
+    public double m33 { get; set; }
+    public double m34 { get; set; }
+    public double m41 { get; set; }
+    public double m42 { get; set; }
+    public double m43 { get; set; }
+    public double m44 { get; set; }
 
     public async Task<DOMMatrix> FlipXAsync() {
         string functionName  = GetJsFunctionName();
@@ -80,7 +81,7 @@ public class DOMMatrixReadOnly {
         return value;
     }
 
-    public async Task<DOMMatrix> RotateAsync(int? rotX = null, int? rotY = null, int? rotZ = null) {
+    public async Task<DOMMatrix> RotateAsync(double? rotX = null, double? rotY = null, double? rotZ = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, rotX, rotY, rotZ }});
@@ -88,7 +89,7 @@ public class DOMMatrixReadOnly {
         return value;
     }
 
-    public async Task<DOMMatrix> RotateAxisAngleAsync(int? x = null, int? y = null, int? z = null, int? angle = null) {
+    public async Task<DOMMatrix> RotateAxisAngleAsync(double? x = null, double? y = null, double? z = null, double? angle = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, x, y, z, angle }});
@@ -96,7 +97,7 @@ public class DOMMatrixReadOnly {
         return value;
     }
 
-    public async Task<DOMMatrix> RotateFromVectorAsync(int? x = null, int? y = null) {
+    public async Task<DOMMatrix> RotateFromVectorAsync(double? x = null, double? y = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, x, y }});
@@ -105,8 +106,8 @@ public class DOMMatrixReadOnly {
     }
 
     
-    public async Task<DOMMatrix> ScaleAsync(int? scaleX = null, int? scaleY = null, int? scaleZ = null, 
-        int? originX = null, int? originY = null, int? originZ = null) {
+    public async Task<DOMMatrix> ScaleAsync(double? scaleX = null, double? scaleY = null, double? scaleZ = null, 
+        double? originX = null, double? originY = null, double? originZ = null) {
         
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
@@ -115,8 +116,8 @@ public class DOMMatrixReadOnly {
         return value;
     }
 
-    public async Task<DOMMatrix> Scale3dAsync(int? scale = null, int? originX = null, 
-                    int? originY = null, int? originZ = null) {
+    public async Task<DOMMatrix> Scale3dAsync(double? scale = null, double? originX = null, 
+                    double? originY = null, double? originZ = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, scale, originX, originY, originZ }});
@@ -124,7 +125,7 @@ public class DOMMatrixReadOnly {
         return value;
     }
     
-    public async Task<DOMMatrix> ScaleNonUniformAsync(int? scaleX = null, int? scaleY = null) {
+    public async Task<DOMMatrix> ScaleNonUniformAsync(double? scaleX = null, double? scaleY = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, scaleX, scaleY }});
@@ -132,7 +133,7 @@ public class DOMMatrixReadOnly {
         return value;
     }
 
-    public async Task<DOMMatrix> SkewXAsync(int? sx = null) {
+    public async Task<DOMMatrix> SkewXAsync(double? sx = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, sx }});
@@ -140,7 +141,7 @@ public class DOMMatrixReadOnly {
         return value;
     }
 
-    public async Task<DOMMatrix> SkewYAsync(int? sy = null) {
+    public async Task<DOMMatrix> SkewYAsync(double? sy = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, sy }});
@@ -178,7 +179,7 @@ public class DOMMatrixReadOnly {
     }
 
     
-    public async Task<DOMMatrix> TranslateAsync(int? tx = null, int? ty = null, int? tz = null) {
+    public async Task<DOMMatrix> TranslateAsync(double? tx = null, double? ty = null, double? tz = null) {
         string functionName  = GetJsFunctionName();
         var value = await this.Runtime.InvokeAsync<DOMMatrix>("DispatchOperationReturn", 
                 new {prop = new dynamic[] { RsubId, functionName, tx, ty, tz }});
