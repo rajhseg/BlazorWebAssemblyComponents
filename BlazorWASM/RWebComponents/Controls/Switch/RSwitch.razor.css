@@ -1,5 +1,13 @@
 
 
+.host {
+    display: inline-block;
+    vertical-align: top;
+    width: fit-content;
+    margin-top: 2px;
+    margin-bottom: 2px;
+}
+
 .rswitch {
     position: relative;
     display: inline-block;
@@ -50,13 +58,6 @@
   .sdr.round:before {
     border-radius: 50%;
   }
-  
-  :host {
-    display: flex;
-    width: fit-content;
-    margin-top: 2px; 
-    margin-bottom: 2px;
-}
 
 ::-webkit-scrollbar {
   width: 0.4em;;

@@ -2,36 +2,36 @@
 
 
 
-
-<div style="@(DonutContainerStyle); width: fit-content; margin-top: 15px; margin-bottom: 15px; display: flex;">
-<div style="position: relative; width: @(ChartWidth)px; height: @(ChartWidth + DataListHeight)px;">
+<div class="host">
+    <div style="@(DonutContainerStyle); width: fit-content; margin-top: 15px; margin-bottom: 15px; display: flex;">
+        <div style="position: relative; width: @(ChartWidth)px; height: @(ChartWidth + DataListHeight)px;">
     
-    <RCanvas @ref="procan" Width="@ChartWidth" Height="ChartWidth" class="canvasCenter" style="@canvasStyle">
-    </RCanvas>   
+            <RCanvas @ref="procan" Width="@ChartWidth" Height="ChartWidth" class="canvasCenter" style="@canvasStyle">
+            </RCanvas>   
 
-    @{ 
-       if(IsRendered)
-       {
-        <div style="position: relative; bottom:@(-ChartWidth)px; height: @(DataListHeight)px">
-            <div class="dataContainer">
+            @{ 
+               if(IsRendered)
+               {
+                <div style="position: relative; bottom:@(-ChartWidth)px; height: @(DataListHeight)px">
+                    <div class="dataContainer">
 
-                @{
-                    foreach(var itm in Items)
-                    {
-                        <div class="data">
-                            <div class="indicator" style="backgroundColor: @itm.BackgroundColor">                    
-                            </div>
-                            <span class="title" style="width: 50px;">@itm.Title</span>
-                            <span class="title" style="width: 30px;">(@itm.Value)</span>
-                        </div>
-                    }
+                        @{
+                            foreach(var itm in Items)
+                            {
+                                <div class="data">
+                                    <div class="indicator" style="backgroundColor: @itm.BackgroundColor">                    
+                                    </div>
+                                    <span class="title" style="width: 50px;">@itm.Title</span>
+                                    <span class="title" style="width: 30px;">(@itm.Value)</span>
+                                </div>
+                            }
+                        }
+
+                    </div>        
+                </div>
                 }
-
-            </div>        
-        </div>
-        }
-    } 
+            } 
     
-</div>
-
+        </div>
+    </div>
 </div>

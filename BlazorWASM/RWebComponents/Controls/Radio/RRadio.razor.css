@@ -1,11 +1,11 @@
 
 
 
-
-:host {
-    /* display: block; */
+.host {
+    display: inline-block;
+    vertical-align: top;
     width: fit-content;
-    margin-top: 6px; 
+    margin-top: 6px;
     margin-bottom: 6px;
 }
 

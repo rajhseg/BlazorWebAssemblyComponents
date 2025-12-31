@@ -18,7 +18,7 @@
     <div style="padding-left: 20px;margin-top:25px;">
 
         <RTextbox style="{width:200px;}" LabelText="Enter Username" PlaceholderText="Username"
-            ValueExpression="()=> ProfileInfo.User.textValue" @bind-value="ProfileInfo.User.textValue">
+             @bind-value="ProfileInfo.User.textValue">
         </RTextbox>
 
         <ValidationMessage style="color: blueviolet;" For="(()=> ProfileInfo.User.textValue)" />
@@ -26,32 +26,32 @@
         <br />
 
         <RTextbox TextboxStyle="width:200px;" LabelText="Enter Password" PlaceholderText="Password" IsPasswordBox=true
-            ValueExpression="()=> ProfileInfo.User.pass" @bind-value="ProfileInfo.User.pass">
+             @bind-value="ProfileInfo.User.pass">
         </RTextbox>
 
         <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.User.pass)" />
 
         <br />
 
-        <RSwitch ValueExpression="()=> ProfileInfo.IsTenthPass" DisplayLabel="Is Tenth Pass"
+        <RSwitch DisplayLabel="Is Tenth Pass"
             @bind-value="@ProfileInfo.IsTenthPass"></RSwitch>
 
-        <RSwitch ValueExpression="()=> ProfileInfo.IsCricket" SwitchBackColor="pink" DisplayLabel="Is Graduate"
+        <RSwitch SwitchBackColor="pink" DisplayLabel="Is Graduate"
             @bind-value="@ProfileInfo.IsCricket"></RSwitch>
 
         <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
         <br />
-        <RCheckbox LabelStyle="color:blue" DisplayText="Is Cricket" ValueExpression="()=> ProfileInfo.IsCricket"
+        <RCheckbox LabelStyle="color:blue" DisplayText="Is Cricket" GroupName="sports"
             @bind-value="@ProfileInfo.IsCricket"></RCheckbox>
         <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsCricket)" />
         <br />
 
-        <RCheckbox LabelStyle="color:blue" DisplayText="Is Tennis" ValueExpression="()=> ProfileInfo.IsTennis"
+        <RCheckbox LabelStyle="color:blue" DisplayText="Is Tennis" GroupName="sports"
             OnChecked="TennisSelected" @bind-value="@ProfileInfo.IsTennis"></RCheckbox>
         <ValidationMessage style="color:blueviolet" For="(()=> ProfileInfo.IsTennis)" />
         <br />
 
-        <RCheckbox LabelStyle="color:blue" DisplayText="Is Volleyball" ValueExpression="()=> ProfileInfo.IsVolleyball"
+        <RCheckbox LabelStyle="color:blue" DisplayText="Is Volleyball" GroupName="sports"
             @bind-value="@ProfileInfo.IsVolleyball"></RCheckbox>
         <ValidationMessage style="color:rgba(108, 65, 148, 0.616)" For="(()=> ProfileInfo.IsVolleyball)" />
         <br />
@@ -61,38 +61,31 @@
             <Content>
 
                 <RRadio LabelStyle="color:blue" DisplayText="Is Baseball" GroupName="sports"
-                    ValueExpression="()=> ProfileInfo.IsBaseball" @bind-value="@ProfileInfo.IsBaseball"></RRadio>
+                     @bind-value="@ProfileInfo.IsBaseball"></RRadio>
 
                 <RRadio LabelStyle="color:blue" DisplayText="Is Football" GroupName="sports"
-                    ValueExpression="()=> ProfileInfo.IsFootball" @bind-value="@ProfileInfo.IsFootball"></RRadio>
+                    @bind-value="@ProfileInfo.IsFootball"></RRadio>
 
                 <RRadio LabelStyle="color:blue" DisplayText="Is Hockey" GroupName="sports"
-                    ValueExpression="()=> ProfileInfo.IsHockey" @bind-value="@ProfileInfo.IsHockey"></RRadio>
+                    @bind-value="@ProfileInfo.IsHockey"></RRadio>
 
             </Content>
         </RGroupPanel>
 
         <br />
-        <RButton ButtonType="submit">
+        <br />
+        <RButton ButtonHeight="40px" ButtonType="submit">
             <Content>Submit</Content>
         </RButton>
 
-        <RButton BackgroundColor="orange" ButtonType="RButtonType.Button" ButtonClick="(e) => ClearForm(e)">
+        <RButton ButtonHeight="40px" BackgroundColor="orange" ButtonType="RButtonType.Button" ButtonClick="(e) => ClearForm(e)">
             <Content>Clear</Content>
         </RButton>
 
     </div>
 
     <br />
-    <br />
-    <br />
 
-    <RCanvas @ref="Canv" Width="200" Height="200"></RCanvas> 
-    <RButton ButtonWidth="200px" ButtonClick="CreateCanvas">
-        <Content>Create Canvas</Content>
-    </RButton>
-
-    <br/>
     <br/>    
 
 
@@ -104,7 +97,7 @@
         Opacity="0.8" Items="pieItems">
     </RDonutChart> 
 
-    <RDonutChart DataListHeight="100" ChartWidth="300" ShadowColor="red" Opacity="0.8" 
+    <RDonutChart DataListHeight="100" ChartWidth="300" ShadowColor="darkblue" Opacity="0.8" 
         Items="pieItems">
     </RDonutChart>
 
@@ -121,7 +114,7 @@
 
     
     <RPieChart DataListHeight="100" ChartWidth="300"
-        MoveTextUpwardsFromCenterInPx="-30" ShadowColor="red" Items="pieItems1"
+        MoveTextUpwardsFromCenterInPx="-30" ShadowColor="darkblue" Items="pieItems1"
         Opacity="0.8"></RPieChart>
 
     <br/>
@@ -147,6 +140,13 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 <br />
 
 
+<RCanvas @ref="Canv" Width="200" Height="200"></RCanvas>
+
+<RButton ButtonWidth="200px" ButtonClick="CreateCanvas">
+    <Content>Create Canvas</Content>
+</RButton>
+
+<br />
 
 
 
@@ -175,17 +175,17 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        
+
     }
 
     private void CreateDonutItems()
     {
-        var pieItem1 = new RDonutChartItem(24, "Cricket", "blue", "white");
+        var pieItem1 = new RDonutChartItem(24, "Cricket", "grey", "white");
         var pieItem2 = new RDonutChartItem(35, "Volleyball", "purple", "white");
-        var pieItem3 = new RDonutChartItem(12, "Tennis", "yellow", "white");
-        var pieItem4 = new RDonutChartItem(44, "BaseBall", "#6CEBC5", "white");
-        var pieItem5 = new RDonutChartItem(14, "Hockey", "orangered", "white");
-        var pieItem6 = new RDonutChartItem(44, "Football", "green", "white");
+        var pieItem3 = new RDonutChartItem(12, "Tennis", "gray", "white");
+        var pieItem4 = new RDonutChartItem(44, "BaseBall", "teal", "white");
+        var pieItem5 = new RDonutChartItem(14, "Hockey", "darkblue", "white");
+        var pieItem6 = new RDonutChartItem(44, "Football", "#13297A", "white");
 
         this.pieItems.Add(pieItem1);
         this.pieItems.Add(pieItem2);
@@ -196,12 +196,12 @@ IsHockey : @ProfileInfo?.IsHockey <br />
     }
 
     private void CreatePieItems(){
-        var pieItem1 = new RPieChartItem(24, "Cricket", "blue", "white");
+        var pieItem1 = new RPieChartItem(24, "Cricket", "grey", "white");
         var pieItem2 = new RPieChartItem(35, "Volleyball", "purple", "white");
-        var pieItem3 = new RPieChartItem(12, "Tennis", "yellow", "white");
-        var pieItem4 = new RPieChartItem(44, "BaseBall", "#6CEBC5", "white");
-        var pieItem5 = new RPieChartItem(14, "Hockey", "orangered", "white");
-        var pieItem6 = new RPieChartItem(44, "Football", "green", "white");
+        var pieItem3 = new RPieChartItem(12, "Tennis", "gray", "white");
+        var pieItem4 = new RPieChartItem(44, "BaseBall", "teal", "white");
+        var pieItem5 = new RPieChartItem(14, "Hockey", "darkblue", "white");
+        var pieItem6 = new RPieChartItem(44, "Football", "#13297A", "white");
 
         this.pieItems1.Add(pieItem1);
         this.pieItems1.Add(pieItem2);

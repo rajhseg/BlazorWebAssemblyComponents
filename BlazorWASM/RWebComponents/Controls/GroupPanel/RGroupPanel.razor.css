@@ -1,5 +1,10 @@
 
 
+.host {
+    display: inline-block;
+    vertical-align: top;
+}
+
 
 .group{
     border:1px solid lightgray;

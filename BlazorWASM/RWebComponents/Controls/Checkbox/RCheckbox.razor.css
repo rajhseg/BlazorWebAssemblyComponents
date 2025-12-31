@@ -1,12 +1,11 @@
 
-
-
-
-:host {
+.host {
     /* display: block; */
     width: fit-content;
-    margin-top: 6px; 
+    margin-top: 6px;
     margin-bottom: 6px;
+    display: inline-block;
+    vertical-align: top;
 }
 
 .checkroot{
