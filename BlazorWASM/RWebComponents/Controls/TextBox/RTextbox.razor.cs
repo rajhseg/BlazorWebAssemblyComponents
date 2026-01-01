@@ -15,6 +15,8 @@ namespace RWebComponents.Controls.TextBox
     private string labelStyle = "";
     private bool isPassword = false;
 
+    private string _inputId { get; set; }
+
 
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> Attributes { get; set; }
@@ -131,13 +133,16 @@ namespace RWebComponents.Controls.TextBox
 
     protected override Task OnAfterRenderAsync(bool firstRender)
     {
-      if (firstRender)
-      {
-        if (string.IsNullOrEmpty(this._id))
-          this._id = "rtextbox_" + Guid.NewGuid().ToString().ToLower();
+        if (firstRender)
+        {
+            if (string.IsNullOrEmpty(this._inputId))
+                this._inputId = "rtextboxinput_" + Guid.NewGuid().ToString().ToLower();
 
-        StateHasChanged();
-      }
+            if (string.IsNullOrEmpty(this._id))
+                this._id = "rtextbox_" + Guid.NewGuid().ToString().ToLower();
+
+            StateHasChanged();
+        }
       return base.OnAfterRenderAsync(firstRender);
     }
 

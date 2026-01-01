@@ -6,7 +6,7 @@
         @LabelText  
     </span>
      
-    <input readOnly="@IsReadOnly"
+    <input readOnly="@IsReadOnly" id="@_inputId"
             type=@(IsPasswordBox ? "password" : "text")             
             value="@value" @oninput="((e)=>this.OnChanged(e))"            
             class="txtbox" 
