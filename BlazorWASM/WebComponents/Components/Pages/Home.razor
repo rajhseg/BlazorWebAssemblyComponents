@@ -17,8 +17,8 @@
 
     <div style="padding-left: 20px;margin-top:25px;">
 
-        <RTextbox style="{width:200px;}" LabelText="Enter Username" PlaceholderText="Username"
-             @bind-value="ProfileInfo.User.textValue">
+        <RTextbox TextboxValueChanged="@TxtValueChanged" style="{width:200px;}" LabelText="Enter Username" PlaceholderText="Username" OnClick="@TextboxClick"
+                @bind-value="ProfileInfo.User.textValue">
         </RTextbox>
 
         <ValidationMessage style="color: blueviolet;" For="(()=> ProfileInfo.User.textValue)" />
@@ -165,6 +165,21 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     public Profile ProfileInfo { get; set; } = new Profile() { IsTenthPass = true };
 
+    private async Task TextboxClick(EventArgs e)
+    {
+
+    }
+
+    private async Task TxtValueChanged(string val)
+    {
+        
+    }
+
+    private async Task TextboxChanged(ChangeEventArgs e)
+    {
+        
+    }
+
     protected override async Task OnInitializedAsync()
     {
         this.context = new(ProfileInfo);
@@ -176,6 +191,11 @@ IsHockey : @ProfileInfo?.IsHockey <br />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
 
+    }
+
+    private async Task OnClickHandler(MouseEventArgs e)
+    {
+        await InvokeAsync(()=> StateHasChanged());
     }
 
     private void CreateDonutItems()

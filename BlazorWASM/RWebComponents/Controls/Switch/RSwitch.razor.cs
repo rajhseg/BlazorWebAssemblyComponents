@@ -73,7 +73,7 @@ public partial class RSwitch : IEntity
   }
 
   [Parameter]
-  public EventCallback<bool?> valueChanged { get; set; }
+  public EventCallback<bool?> SwitchValueChanged { get; set; }
 
   [Parameter]
   public EventCallback<bool> OnChecked { get; set; }
@@ -119,9 +119,9 @@ public partial class RSwitch : IEntity
 
     isChecked = !isChecked;
 
-    if (valueChanged.HasDelegate)
+    if (SwitchValueChanged.HasDelegate)
     {
-      await valueChanged.InvokeAsync(this.isChecked);
+      await SwitchValueChanged.InvokeAsync(this.isChecked);
     }
 
     this.NotifyToModel();

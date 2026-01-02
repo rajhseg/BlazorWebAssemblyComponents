@@ -59,7 +59,7 @@ public partial class RRadio : IEntity
     public string Color {get; set; } = "#00c7ba";
 
     [Parameter]
-    public EventCallback<bool?> valueChanged { get; set; }
+    public EventCallback<bool?> RadioValueChanged { get; set; }
 
     [Parameter]
     public string DisplayText { get; set; } = "";
@@ -109,7 +109,7 @@ public partial class RRadio : IEntity
 
     public async Task TriggerValueChanged()
     {
-        await InvokeAsync(async () => await this.valueChanged.InvokeAsync(this.value));
+        await InvokeAsync(async () => await this.RadioValueChanged.InvokeAsync(this.value));
     }
     
     private async Task check(EventArgs e)
@@ -131,7 +131,7 @@ public partial class RRadio : IEntity
             await this.resetValueForGroupedCheckbox(this.GroupName);
         }
 
-        await valueChanged.InvokeAsync(this._isChecked.Value);
+        await RadioValueChanged.InvokeAsync(this._isChecked.Value);
 
         await this.NotifyToModel(this.value);
 
