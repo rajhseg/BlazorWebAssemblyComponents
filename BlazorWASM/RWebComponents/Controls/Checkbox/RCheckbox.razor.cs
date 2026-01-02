@@ -59,6 +59,9 @@ public partial class RCheckbox : IEntity
     public EventCallback<bool?> CheckboxValueChanged { get; set; }
 
     [Parameter]
+    public EventCallback<bool?> valueChanged { get; set; }
+
+    [Parameter]
     public string DisplayText { get; set; } = "";
 
     [Parameter]
@@ -127,7 +130,17 @@ public partial class RCheckbox : IEntity
             await this.resetValueForGroupedCheckbox(this.GroupName);
         }
 
-        await CheckboxValueChanged.InvokeAsync(this._isChecked.Value);
+        if (this.CheckboxValueChanged.HasDelegate)
+        {
+            await CheckboxValueChanged.InvokeAsync(this._isChecked.Value);
+            StateHasChanged();
+        }
+
+        if (this.valueChanged.HasDelegate)
+        {
+            await valueChanged.InvokeAsync(this._isChecked.Value);
+            StateHasChanged();
+        }
 
         await this.NotifyToModel(this.value);
 

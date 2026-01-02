@@ -21,6 +21,12 @@
                 @bind-value="ProfileInfo.User.textValue">
         </RTextbox>
 
+        <RTextbox style="{width:200px;}" LabelText="Enter Username2" PlaceholderText="Username2" OnClick="@TextboxClick"
+                  @bind-value="ProfileInfo.User.textValue">
+        </RTextbox>
+
+        @ProfileInfo.User.textValue;
+
         <ValidationMessage style="color: blueviolet;" For="(()=> ProfileInfo.User.textValue)" />
 
         <br />

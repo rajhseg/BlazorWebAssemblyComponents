@@ -62,6 +62,9 @@ public partial class RRadio : IEntity
     public EventCallback<bool?> RadioValueChanged { get; set; }
 
     [Parameter]
+    public EventCallback<bool?> valueChanged { get; set;  }
+
+    [Parameter]
     public string DisplayText { get; set; } = "";
 
     [Parameter]
@@ -131,7 +134,17 @@ public partial class RRadio : IEntity
             await this.resetValueForGroupedCheckbox(this.GroupName);
         }
 
-        await RadioValueChanged.InvokeAsync(this._isChecked.Value);
+        if (this.RadioValueChanged.HasDelegate)
+        {
+            await RadioValueChanged.InvokeAsync(this._isChecked.Value);
+            StateHasChanged();
+        }
+
+        if (this.valueChanged.HasDelegate)
+        {
+            await valueChanged.InvokeAsync(this._isChecked.Value);
+            StateHasChanged();
+        }
 
         await this.NotifyToModel(this.value);
 

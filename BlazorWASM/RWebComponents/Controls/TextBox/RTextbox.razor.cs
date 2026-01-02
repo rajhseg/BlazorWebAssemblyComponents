@@ -116,6 +116,9 @@ namespace RWebComponents.Controls.TextBox
         public EventCallback<string> TextboxValueChanged { get; set; }
 
         [Parameter]
+        public EventCallback<string> valueChanged { get; set; }
+
+        [Parameter]
         public EventCallback<MouseEventArgs> OnClick { get; set; }
 
         public RTextbox()
@@ -162,6 +165,12 @@ namespace RWebComponents.Controls.TextBox
             if (this.TextboxValueChanged.HasDelegate)
             {
                 await TextboxValueChanged.InvokeAsync(this._textboxValue);
+                StateHasChanged();
+            }
+
+            if(this.valueChanged.HasDelegate)
+            {
+                await valueChanged.InvokeAsync(this._textboxValue);
                 StateHasChanged();
             }
 
