@@ -99,6 +99,7 @@ public partial class RRadio : IEntity
 
     public async Task TriggerValueChanged()
     {
+        await InvokeAsync(async () => await this.valueChanged.InvokeAsync(this.value));
         await InvokeAsync(async () => await this.RadioValueChanged.InvokeAsync(this.value));
     }
     

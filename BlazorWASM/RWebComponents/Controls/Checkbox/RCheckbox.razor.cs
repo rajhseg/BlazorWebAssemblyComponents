@@ -94,6 +94,7 @@ public partial class RCheckbox : IEntity
 
     public async Task TriggerValueChanged()
     {
+        await InvokeAsync(async () => await this.valueChanged.InvokeAsync(this.value));
         await InvokeAsync(async () => await this.CheckboxValueChanged.InvokeAsync(this.value));
     }
     private async Task check(EventArgs e)
