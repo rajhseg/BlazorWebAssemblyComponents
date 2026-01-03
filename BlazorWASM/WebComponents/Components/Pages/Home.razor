@@ -17,7 +17,8 @@
 
     <div style="padding-left: 20px;margin-top:25px;">
 
-        <RTextbox TextboxValueChanged="@TxtValueChanged" style="{width:200px;}" LabelText="Enter Username" PlaceholderText="Username" OnClick="@TextboxClick"
+        <RTextbox IsPasswordBox="IsPassword" TextboxValueChanged="@TxtValueChanged" style="{width:200px;}" 
+                LabelText="Enter Username" PlaceholderText="Username" OnClick="@TextboxClick"
                 @bind-value="ProfileInfo.User.textValue">
         </RTextbox>
 
@@ -25,7 +26,8 @@
                   @bind-value="ProfileInfo.User.textValue">
         </RTextbox>
 
-        @ProfileInfo.User.textValue;
+        @ProfileInfo.User.textValue
+        @IsPassword
 
         <ValidationMessage style="color: blueviolet;" For="(()=> ProfileInfo.User.textValue)" />
 
@@ -80,7 +82,7 @@
 
         <br />
         <br />
-        <RButton ButtonHeight="40px" ButtonType="submit">
+        <RButton ButtonHeight="40px" ButtonClick="(e)=> ValidSubmit()">
             <Content>Submit</Content>
         </RButton>
 
@@ -160,6 +162,8 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private EditContext? context;
 
+    private bool IsPassword { get; set; } = false;
+
     private RCanvas Canv { get; set; }
 
     private List<RDonutChartItem> pieItems { get; set; } = new List<RDonutChartItem>();
@@ -178,12 +182,12 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private async Task TxtValueChanged(string val)
     {
-        
+
     }
 
     private async Task TextboxChanged(ChangeEventArgs e)
     {
-        
+
     }
 
     protected override async Task OnInitializedAsync()
@@ -250,12 +254,12 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
         this.pieItems1.Add(pieItem51);
         this.pieItems1.Add(pieItem61);
-        
+
         await InvokeAsync(()=> StateHasChanged());
-        
-        
+
+
         canvasContext = await this.Canv.CreateContext2DAsync();
-    
+
         if (canvasContext != null)
         {
             await canvasContext.BeginPathAsync();
@@ -275,7 +279,7 @@ IsHockey : @ProfileInfo?.IsHockey <br />
             await canvasContext.FillRectAsync(20, 20, 150, 100);
             await canvasContext.ClosePathAsync();
         }  
-        
+
     }
 
     private void ClearForm(RButtonEventArgs e)
@@ -302,7 +306,7 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private void ValidSubmit()
     {
-
+        this.IsPassword = !this.IsPassword;
     }
 
     public void focusIn(FocusEventArgs e)

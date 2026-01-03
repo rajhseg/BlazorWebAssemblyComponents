@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace RWebComponents.Controls;
@@ -44,5 +45,7 @@ public class RObjectCollection : IRObjectCollection
 }
 
 public interface IEntity {
-   string _id {get;}
+
+    string? _id {get;}
+
 }

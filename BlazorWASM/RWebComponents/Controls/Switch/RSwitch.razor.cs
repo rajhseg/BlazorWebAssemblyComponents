@@ -7,21 +7,12 @@ namespace RWebComponents.Controls.Switch;
 
 public partial class RSwitch : IEntity
 {
-  public string _id { get; private set; }
+  public string? _id { get; private set; }
   private FieldIdentifier fieldIdentifier;
   private string labelStyle = string.Empty;
   private string styles = "";
   private string _backColor = "rgba(27, 81, 199, 0.692)";
   private bool? isChecked = false;
-
-  [Parameter(CaptureUnmatchedValues = true)]
-  public Dictionary<string, object> Attributes { get; set; }
-
-  [CascadingParameter]
-  public EditContext? EditContext { get; set; }
-
-  [Parameter]
-  public Expression<Func<bool?>> ValueExpression { get; set; } = default!;
 
   [Parameter]
   public string LabelStyle
@@ -57,7 +48,7 @@ public partial class RSwitch : IEntity
   }
 
   [Parameter]
-  public bool? value
+  public override bool? value
   {
     get
     {
@@ -71,9 +62,6 @@ public partial class RSwitch : IEntity
         this.EditContext?.NotifyFieldChanged(this.fieldIdentifier);
     }
   }
-
-    [Parameter]
-    public EventCallback<bool?> valueChanged { get; set;  }
 
   [Parameter]
   public EventCallback<bool?> SwitchValueChanged { get; set; }

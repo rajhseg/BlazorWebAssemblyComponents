@@ -7,19 +7,9 @@ namespace RWebComponents.Controls.Radio;
 
 public partial class RRadio : IEntity
 {
-    public string _id { get; private set; }
+    public string? _id { get; private set; }
     private bool? _isChecked;
-    private FieldIdentifier fieldIdentifier;
     private string labelStyle = "";
-
-    [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> Attributes { get; set; }
-
-    [CascadingParameter]
-    public EditContext? EditContext { get; set; }
-
-    [Parameter]
-    public Expression<Func<bool?>> ValueExpression { get; set; } = default!;
 
     [Parameter]
     public string LabelStyle
@@ -36,7 +26,7 @@ public partial class RRadio : IEntity
     }
 
     [Parameter]
-    public bool? value
+    public override bool? value
     {
         get
         {
@@ -60,9 +50,6 @@ public partial class RRadio : IEntity
 
     [Parameter]
     public EventCallback<bool?> RadioValueChanged { get; set; }
-
-    [Parameter]
-    public EventCallback<bool?> valueChanged { get; set;  }
 
     [Parameter]
     public string DisplayText { get; set; } = "";

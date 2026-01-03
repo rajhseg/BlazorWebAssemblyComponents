@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace RWebComponents.Controls;
 
-public abstract class RComponentBase
+public abstract class RComponentBase<T> : ComponentBase
 {
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object> Attributes { get; set; }
@@ -14,9 +14,13 @@ public abstract class RComponentBase
     public EditContext? EditContext { get; set; }
 
     [Parameter]
-    public Expression<Func<string>> ValueExpression { get; set; } = default!;
+    public Expression<Func<T>> ValueExpression { get; set; } = default!;
 
-    private FieldIdentifier fieldIdentifier;
+
+    protected FieldIdentifier fieldIdentifier;
+
+    [Parameter]
+    public EventCallback<T> valueChanged { get; set; }
 
     private string styles = "";
 
@@ -40,5 +44,8 @@ public abstract class RComponentBase
         return this.styles;
       }
     }
+
+    [Parameter]
+    public abstract T value { get; set; }
 
 }

@@ -1,4 +1,5 @@
-﻿
+﻿@inherits RComponentBaseCommonEvents<string>;
+
 <div class="host">
 <div id="@_id" class="txtroot" style="display: flex; width: fit-content; margin-top: 4px; margin-bottom: 4px;">
     <span class="span" style="width: @(TextBoxWidth)px; 
@@ -6,20 +7,63 @@
         @LabelText  
     </span>
      
-    <input readOnly="@IsReadOnly" id="@_inputId"
-            type=@(IsPasswordBox ? "password" : "text")             
-            value="@value" @oninput="((e)=>this.OnChanged(e))"            
-            class="txtbox" 
-            @attributes="Attributes"
+        @{
+            if (IsPasswordBox)
+            {
+                <input readOnly="@IsReadOnly" id="@_inputId"
+                       type="password"
+                       value="@value" 
+                       class="txtbox"
+                       @attributes="Attributes"
 
-       style="height: @(TextBoxHeight)px; 
-            width: @(TextBoxWidth)px;
-            border-bottom-color: @BottomLineColor;       
-            margin-bottom: @(EnableMarginTextBottom ? (this.MarginTextBottom) : 0 )px; 
-            @TextboxStyle"
+                       style="height: @(TextBoxHeight)px;
+                            width: @(TextBoxWidth)px;
+                            border-bottom-color: @BottomLineColor;
+                            margin-bottom: @(EnableMarginTextBottom ? (this.MarginTextBottom) : 0)px;
+                            @TextboxStyle"
 
-       placeholder="@PlaceholderText" 
-       @onclick="((e)=> txtboxClicked(e))">     
+                       placeholder="@PlaceholderText"
 
+                       @oncut="OnCut" @oncopy="OnCopy" @onpaste="OnPaste"
+                       @onfocus="OnFocus" @onfocusin="OnFocusIn" @onfocusout="OnFocusOut" @onblur="OnBlur"
+                       @ondblclick="OnDblClick" @onclick="((e) => txtboxClicked(e))"
+                       @onmousedown="OnMouseDown" @onmouseenter="OnMouseEnter" @onmouseleave="OnMouseLeave"
+                       @onmousemove="OnMouseMove" @onmouseout="OnMouseOut" @onmouseover="OnMouseOver"
+                       @onmouseup="OnMouseUp" @onmousewheel="OnMouseWheel"
+                       @onkeyup="OnKeyUp" @onkeydown="OnKeyDown" @onkeypress="OnKeyPress"
+                       @oninput="((e) => this.OnInputChanged(e))" @onchange="OnChanged"
+                       @ondrag="OnDrag" @ondragend="OnDragEnd" @ondragenter="OnDragEnter" @ondragleave="OnDragLeave"
+                       @ondragover="OnDragOver" @ondragstart="OnDragStart" @ondrop="OnDrop">
+
+            }
+            else
+            {
+                <input readOnly="@IsReadOnly" id="@_inputId"
+                       type="text"
+                       value="@value" 
+                       class="txtbox"
+                       @attributes="Attributes"
+
+                       style="height: @(TextBoxHeight)px;
+                                    width: @(TextBoxWidth)px;
+                                    border-bottom-color: @BottomLineColor;
+                                    margin-bottom: @(EnableMarginTextBottom ? (this.MarginTextBottom) : 0)px;
+                                    @TextboxStyle"
+                       placeholder="@PlaceholderText"
+
+                       @oncut="OnCut" @oncopy="OnCopy" @onpaste="OnPaste" 
+                       @onfocus="OnFocus" @onfocusin="OnFocusIn" @onfocusout="OnFocusOut" @onblur="OnBlur"
+                       @ondblclick="OnDblClick" @onclick="((e) => txtboxClicked(e))"
+                       @onmousedown="OnMouseDown" @onmouseenter="OnMouseEnter" @onmouseleave="OnMouseLeave"
+                       @onmousemove="OnMouseMove" @onmouseout="OnMouseOut"  @onmouseover="OnMouseOver"
+                       @onmouseup="OnMouseUp" @onmousewheel="OnMouseWheel"
+                       @onkeyup="OnKeyUp" @onkeydown="OnKeyDown" @onkeypress="OnKeyPress"
+                       @oninput="((e) => this.OnInputChanged(e))" @onchange="OnChanged"
+                       @ondrag="OnDrag" @ondragend="OnDragEnd" @ondragenter="OnDragEnter" @ondragleave="OnDragLeave"
+                       @ondragover="OnDragOver" @ondragstart="OnDragStart" @ondrop="OnDrop">
+
+            }
+        }
+    
 </div>
 </div>
