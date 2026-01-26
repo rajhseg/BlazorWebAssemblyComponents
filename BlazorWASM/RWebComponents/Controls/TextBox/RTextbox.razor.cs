@@ -48,6 +48,9 @@ namespace RWebComponents.Controls.TextBox
         }
 
         [Parameter]
+        public bool EnableBackDrop { get; set; } = false;
+
+        [Parameter]
         public string LabelText { get; set; } = "";
 
         [Parameter]

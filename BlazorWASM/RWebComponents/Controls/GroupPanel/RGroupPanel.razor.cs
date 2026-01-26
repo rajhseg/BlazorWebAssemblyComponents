@@ -8,7 +8,7 @@ public partial class RGroupPanel
 {
 
     [Parameter]
-    public bool EnableShadowEffect {get; set;} = true;
+    public bool EnableShadowEffect {get; set;} = false;
 
     [Parameter]
     public string GroupName {get; set;}= "";

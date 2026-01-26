@@ -7,6 +7,7 @@
         style="height: @ButtonHeight; width: @ButtonWidth;
             color:@ForeColor; 
             background-color:@BackgroundColor; 
+            box-shadow: @(EnableBackDrop ? "rgba(0, 0, 0, 0.24) 0px 3px 8px;" : "none;")
             border: 1px solid @BackgroundColor; @ButtonStyle">
         @Content
     </button>

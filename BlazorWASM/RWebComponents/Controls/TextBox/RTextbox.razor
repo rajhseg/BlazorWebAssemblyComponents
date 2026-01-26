@@ -13,13 +13,14 @@
                 <input readOnly="@IsReadOnly" id="@_inputId"
                        type="password"
                        value="@value" 
-                       class="txtbox"
+                       class=@(EnableBackDrop ? "txtbox" : "txtbox brdr")
                        @attributes="Attributes"
 
                        style="height: @(TextBoxHeight)px;
                             width: @(TextBoxWidth)px;
                             border-bottom-color: @BottomLineColor;
                             margin-bottom: @(EnableMarginTextBottom ? (this.MarginTextBottom) : 0)px;
+                            box-shadow: @(EnableBackDrop ? "rgba(0, 0, 0, 0.24) 0px 3px 8px" : "none");
                             @TextboxStyle"
 
                        placeholder="@PlaceholderText"
@@ -41,13 +42,14 @@
                 <input readOnly="@IsReadOnly" id="@_inputId"
                        type="text"
                        value="@value" 
-                       class="txtbox"
+                       class=@(EnableBackDrop ? "txtbox" : "txtbox brdr")
                        @attributes="Attributes"
 
                        style="height: @(TextBoxHeight)px;
                                     width: @(TextBoxWidth)px;
                                     border-bottom-color: @BottomLineColor;
                                     margin-bottom: @(EnableMarginTextBottom ? (this.MarginTextBottom) : 0)px;
+                                    box-shadow: @(EnableBackDrop ? "rgba(0, 0, 0, 0.24) 0px 3px 8px" : "none");
                                     @TextboxStyle"
                        placeholder="@PlaceholderText"
 

@@ -17,6 +17,9 @@ namespace RWebComponents.Controls.Button
         public EditContext? EditContext { get; set; }
 
         [Parameter]
+        public bool EnableBackDrop { get; set; } = true;
+
+        [Parameter]
         public string ButtonStyle
         {
             set

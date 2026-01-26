@@ -8,6 +8,11 @@
     margin-bottom: 3px;
 }
 
+.brdr {
+    border-top: 0.5px solid lightgray !important;
+    border-left: 0.5px solid lightgray !important;
+    border-right: 0.5px solid lightgray !important;
+}
 
 .txtbox {
     width:200px;
@@ -16,8 +21,7 @@
     cursor: pointer;
     border: none;
     border-bottom-width: 2px;
-    border-bottom-style: solid;    
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; 
+    border-bottom-style: solid;     
     outline: none;
     align-content: center;
     align-items: center;
