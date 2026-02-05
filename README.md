@@ -63,6 +63,13 @@ RPieChart
 
 <br/>
 
+RScatterChart
+------------------------------------
+<img width="465" height="467" alt="image" src="https://github.com/user-attachments/assets/5b08cc25-ce23-4dbe-813b-087c40b7dfd1" />
+
+<br />
+
+
 
 
 
