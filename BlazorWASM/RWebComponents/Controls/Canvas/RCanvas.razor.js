@@ -1,4 +1,5 @@
 var Dict = {};
+var canvaselementsDict = {};
 var num = 111;
 var objsAddToDict = [
     'createConicGradient', 'createLinearGradient', 'createRadialGradient',
@@ -20,6 +21,7 @@ export function CreateContext(obj) {
         var context = canvasElement.getContext('2d');
         if (context) {
             Dict[obj.Id] = context;
+            canvaselementsDict[obj.Id] = canvasElement;
             value = ConvertToJsonString(context);
         }
     }

@@ -3,8 +3,10 @@
 @using System.ComponentModel.DataAnnotations;
 @using RWebComponents.Controls.DonutChart
 @using RWebComponents.Controls.GroupPanel
+@using RWebComponents.Controls.Models
 @using RWebComponents.Controls.PieChart
 @using RWebComponents.Controls.Radio
+@using RWebComponents.Controls.ScatterChart
 @using RWebComponents.Controls.TextBox;
 @using RWebComponents.Controls.Button;
 @using RWebComponents.Controls.Switch;
@@ -127,6 +129,10 @@
 
     <br/>
     <br/>
+
+    <RScatterChart @ref="ScatterChartRef" Width="400" Height="400" XAxisTitle="'Age'" YAxisTitle="'Weight'" Items="scatterModels">
+
+    </RScatterChart>
     
 </EditForm>
 
@@ -170,10 +176,13 @@ IsHockey : @ProfileInfo?.IsHockey <br />
 
     private List<RPieChartItem> pieItems1 { get; set; } = new List<RPieChartItem>();
 
+    private List<RScatterChartItem> scatterModels { get; set; } = new List<RScatterChartItem>();
 
     private CanvasContext canvasContext;
 
     public Profile ProfileInfo { get; set; } = new Profile() { IsTenthPass = true };
+
+    public RScatterChart ScatterChartRef { get; set; }
 
     private async Task TextboxClick(EventArgs e)
     {
@@ -195,6 +204,7 @@ IsHockey : @ProfileInfo?.IsHockey <br />
         this.context = new(ProfileInfo);
         this.CreateDonutItems();
         this.CreatePieItems();
+        this.CreateScatterChart();
         await InvokeAsync(()=> StateHasChanged());
     }
 
@@ -241,8 +251,36 @@ IsHockey : @ProfileInfo?.IsHockey <br />
         this.pieItems1.Add(pieItem6);
     }
 
+    private void CreateScatterChart()
+    {
+        var item1 = new RScatterChartItem("City 1", "Teal", [
+                       new RGraph(2,8), new RGraph(15,35), new RGraph(20,65), new RGraph(14, 30)
+                      ,new RGraph(30,63), new RGraph(35,78), new RGraph(24,53), new RGraph(26, 56)
+                      ,new RGraph(20,42), new RGraph(14,31), new RGraph(34,75), new RGraph(48, 72)
+                    ]);
+
+        var item2 = new RScatterChartItem("City 2", "red", [
+                       new RGraph(15,40), new RGraph(18,55), new RGraph(20,58)
+                      ,new RGraph(45,83), new RGraph(28,48), new RGraph(44,83), new RGraph(16, 26)
+                      ,new RGraph(60,62), new RGraph(64,61), new RGraph(54,75), new RGraph(68, 72)
+                     ]);
+
+        var item3 = new RScatterChartItem("City 3", "blue", [
+                          new RGraph(14,35), new RGraph(25,45), new RGraph(40,85)
+                         ,new RGraph(40,63), new RGraph(55,78), new RGraph(54,53), new RGraph(66, 56)
+                         ,new RGraph(20,32), new RGraph(14,41), new RGraph(34,75), new RGraph(68, 72)
+                        ]);
+
+        this.scatterModels = [item1, item2, item3];
+
+    }
+
     private async Task CreateCanvas()
     {
+        this.scatterModels[1].Itemcolor = "orange";
+
+        await this.ScatterChartRef.RenderChart();
+
         var pieItem5 = new RDonutChartItem(14, "F1", "gray", "white");
         var pieItem6 = new RDonutChartItem(44, "WW", "red", "white");
 

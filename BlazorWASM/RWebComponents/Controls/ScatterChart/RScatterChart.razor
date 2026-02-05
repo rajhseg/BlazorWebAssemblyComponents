@@ -1,0 +1,29 @@
+﻿@using RWebComponents.Controls.Canvas
+
+
+<div id="@_id" class="host" style="@ScatterContainerStyle">
+
+    <RCanvas @ref="bar" Width="@Width" Height="Height">
+    </RCanvas>
+
+    @{
+        if (_isRendered)
+        {
+            <div style="position: relative; align-content:center; bottom:10px; height:@(DataListHeight)px">
+                <div class="dataContainer" style="width:@(Width-MarginX)px">
+                    @{
+                        foreach (var item in Items)
+                        {
+                            <div class="data">
+                                <div class="indicator" style="background-color: @item.Itemcolor">
+                                </div>
+                                <span class="title" style="width:fit-content">@item.ItemName</span>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        }
+    }
+
+</div>
