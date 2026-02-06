@@ -120,6 +120,9 @@ namespace RWebComponents.Controls.ScatterChart
 
         public string _id { get; private set; } = string.Empty;
 
+        public string _canvasId { get; private set; } = string.Empty;
+
+
         private bool _isRendered = false;
 
         private List<RPopUpChartItem<RScatterChartItem>> popUpChartItems = [];
@@ -135,6 +138,9 @@ namespace RWebComponents.Controls.ScatterChart
             {
                 if (string.IsNullOrEmpty(this._id))
                     this._id = "rscatterchart" + Guid.NewGuid().ToString().ToLower();
+                
+                if (string.IsNullOrEmpty(this._canvasId))
+                    this._canvasId = "rscatterchart_canvas_" + Guid.NewGuid().ToString().ToLower();
 
                 if (this.bar != null)
                 {

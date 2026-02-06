@@ -21,7 +21,6 @@ export function CreateContext(obj) {
         var context = canvasElement.getContext('2d');
         if (context) {
             Dict[obj.Id] = context;
-            canvaselementsDict[obj.Id] = canvasElement;
             value = ConvertToJsonString(context);
         }
     }
