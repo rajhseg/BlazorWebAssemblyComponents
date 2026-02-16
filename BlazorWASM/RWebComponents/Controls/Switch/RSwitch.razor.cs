@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace RWebComponents.Controls.Switch;
 
-public partial class RSwitch : IEntity
+public partial class RSwitch : RComponentBase<bool?>, IEntity
 {
   public string? _id { get; private set; }
   private FieldIdentifier fieldIdentifier;

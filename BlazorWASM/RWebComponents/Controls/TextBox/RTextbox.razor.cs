@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace RWebComponents.Controls.TextBox
 {
-    public partial class RTextbox : IEntity
+    public partial class RTextbox : RComponentBaseCommonEvents<string>, IEntity
     {
         public string? _id { get; private set; }
 

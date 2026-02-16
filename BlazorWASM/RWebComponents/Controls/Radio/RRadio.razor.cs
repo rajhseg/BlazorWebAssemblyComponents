@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 
 namespace RWebComponents.Controls.Radio;
 
-public partial class RRadio : IEntity
+public partial class RRadio : RComponentBase<bool?>, IEntity
 {
     public string? _id { get; private set; }
     private bool? _isChecked;

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace RWebComponents.Controls.Checkbox;
 
-public partial class RCheckbox : IEntity
+public partial class RCheckbox : RComponentBase<bool?>, IEntity
 {
     public string? _id { get; private set; }
     private bool? _isChecked;
