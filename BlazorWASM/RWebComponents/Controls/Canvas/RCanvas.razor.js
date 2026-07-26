@@ -13,6 +13,15 @@ var objsAddToDict = [
     'multiply', 'inverse', 'flipY', 'flipX', 'matrixTransform'
 ];
 export function ClearContext(obj) {
+    if (Dict[obj.Id]) {
+        delete Dict[obj.Id];
+    }
+    let prefix = obj.Id + "_";
+    for (let key in Dict) {
+        if (key.startsWith(prefix)) {
+            delete Dict[key];
+        }
+    }
 }
 export function CreateContext(obj) {
     var canvasElement = document.getElementById(obj.Id);

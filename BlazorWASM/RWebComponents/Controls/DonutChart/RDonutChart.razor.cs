@@ -6,7 +6,7 @@ using RWebComponents.Controls.DonutChart;
 
 namespace RWebComponents.Controls.DonutChart;
 
-public partial class RDonutChart
+public partial class RDonutChart 
 {
     private readonly object lockObj = new object();
 

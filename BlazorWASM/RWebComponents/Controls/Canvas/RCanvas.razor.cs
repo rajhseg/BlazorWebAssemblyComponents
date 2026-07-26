@@ -87,6 +87,11 @@ public partial class RCanvas : ICanvasEntity, IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {        
+         if(this.jsModule!=null) {
+            CanvasCreateContext ctx = new CanvasCreateContext {Id = _id};
+            await this.jsModule.InvokeVoidAsync("ClearContext", ctx);       
+        }
+        
         await Task.CompletedTask;
     }
 }

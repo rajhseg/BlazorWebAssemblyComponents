@@ -20,7 +20,15 @@ let objsAddToDict = [
                     
 
  export function ClearContext(obj: {Id: string}){
-
+    if (Dict[obj.Id]) {
+        delete Dict[obj.Id];
+    }
+    let prefix = obj.Id + "_";
+    for (let key in Dict) {
+        if (key.startsWith(prefix)) {
+            delete Dict[key];
+        }
+    }
  }
 
  export function CreateContext(obj: {Id: string}) {
