@@ -6,7 +6,7 @@ using RWebComponents.Controls.DonutChart;
 
 namespace RWebComponents.Controls.DonutChart;
 
-public partial class RDonutChart 
+public partial class RDonutChart : IAsyncDisposable
 {
     private readonly object lockObj = new object();
 
@@ -227,5 +227,11 @@ public partial class RDonutChart
 
             await InvokeAsync(() => StateHasChanged());
         }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        this.procan?.DisposeAsync();
+        return ValueTask.CompletedTask;
     }
 }

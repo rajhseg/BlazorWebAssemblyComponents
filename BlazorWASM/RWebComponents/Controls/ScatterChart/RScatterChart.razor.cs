@@ -4,11 +4,11 @@ using RWebComponents.Controls.Models;
 
 namespace RWebComponents.Controls.ScatterChart
 {
-    public partial class RScatterChart : IEntity
+    public partial class RScatterChart : IEntity, IAsyncDisposable
     {
 
         private readonly object lockObj = new object();
-        
+
         private List<RScatterChartItem> _items = new List<RScatterChartItem>();
 
         [Parameter]
@@ -138,7 +138,7 @@ namespace RWebComponents.Controls.ScatterChart
             {
                 if (string.IsNullOrEmpty(this._id))
                     this._id = "rscatterchart" + Guid.NewGuid().ToString().ToLower();
-                
+
                 if (string.IsNullOrEmpty(this._canvasId))
                     this._canvasId = "rscatterchart_canvas_" + Guid.NewGuid().ToString().ToLower();
 
@@ -536,5 +536,12 @@ namespace RWebComponents.Controls.ScatterChart
             }
         }
 
+        public ValueTask DisposeAsync()
+        {
+            this.bar?.DisposeAsync();
+            return ValueTask.CompletedTask;
+        }
+
     }
 }
+

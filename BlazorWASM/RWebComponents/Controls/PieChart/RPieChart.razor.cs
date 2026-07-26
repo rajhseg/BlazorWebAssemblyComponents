@@ -6,7 +6,7 @@ using RWebComponents.Controls.PieChart;
 
 namespace RWebComponents.Controls.PieChart;
 
-public partial class RPieChart
+public partial class RPieChart : IAsyncDisposable
 {
     private readonly object lockObj = new object();
 
@@ -241,5 +241,11 @@ public partial class RPieChart
 
             await InvokeAsync(() => StateHasChanged());
         }
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        this.piecan?.DisposeAsync();
+        return ValueTask.CompletedTask;
     }
 }
